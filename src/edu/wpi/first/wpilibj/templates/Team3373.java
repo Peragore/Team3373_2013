@@ -29,6 +29,10 @@ public class Team3373 extends SimpleRobot {
     Joystick leftStick = new Joystick(1);
     Joystick rightStick = new Joystick(2);
 
+    public Team3373(){
+        
+    }
+    
     public void RoboDemo() {
     getWatchdog().setEnabled(false);
 }
