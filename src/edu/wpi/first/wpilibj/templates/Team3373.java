@@ -33,12 +33,14 @@ public class Team3373 extends SimpleRobot {
         
     }
     
+    
     public void RoboDemo() {
     getWatchdog().setEnabled(false);
 }
     
     public void autonomous() {
         for (int i = 0; i < 4; i++)  {
+            drive.tankDrive(1, 0x1);
             }
     }
 
