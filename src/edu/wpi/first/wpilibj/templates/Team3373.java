@@ -39,7 +39,7 @@ public class Team3373 extends SimpleRobot {
     
     public void autonomous() {
         for (int i = 0; i < 4; i++)  {
-            }
+            }hh
     }
 
     /**
