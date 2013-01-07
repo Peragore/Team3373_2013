@@ -28,6 +28,7 @@ public class Team3373 extends SimpleRobot {
     RobotDrive drive = new RobotDrive(1,2);
     Joystick leftStick = new Joystick(1);
     Joystick rightStick = new Joystick(2);
+    MotorSafety safety = new MotorSafetyImpl();
 
     public Team3373(){
         
@@ -36,8 +37,8 @@ public class Team3373 extends SimpleRobot {
     
     public void RoboDemo() {
     getWatchdog().setEnabled(false);
+    safety.setSafetyEnabled(false);
 }
-    ghghg
     public void autonomous() {
         for (int i = 0; i < 4; i++)  {
             drive.tankDrive(1, 0x1);
@@ -49,5 +50,36 @@ public class Team3373 extends SimpleRobot {
      */
     public void operatorControl() {
 
+    }
+
+    private static class MotorSafetyImpl implements MotorSafety {
+
+        public MotorSafetyImpl() {
+        }
+
+        public void setExpiration(double d) {
+        }
+
+        public double getExpiration() {
+            return 0;
+        }
+
+        public boolean isAlive() {
+            return false;
+        }
+
+        public void stopMotor() {
+        }
+
+        public void setSafetyEnabled(boolean bln) {
+        }
+
+        public boolean isSafetyEnabled() {
+            return false;
+        }
+
+        public String getDescription() {
+            return null;
+        }
     }
 }
