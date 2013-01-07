@@ -18,7 +18,7 @@ public class drive {
     double DRIVE_LSTICK = drivestick.getRawAxis(2);
         
     public void Driving(){
-    if  (DRIVE_LSTICK >= -1 & XBOX_LSTICK <= 0 ){
+    if  (DRIVE_LSTICK >= -1 & DRIVE_LSTICK <= 0 ){
        
     }  
  }
