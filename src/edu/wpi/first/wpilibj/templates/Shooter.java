@@ -45,7 +45,9 @@ public class Shooter {
    
    int idle = 1;
    int off = 0;
+   double PWMMax = 1;
    double currentRPMT2 = StageTwoTalon.get();
+   double shoortSpeedScale = PWMMax/5300;
 
 
   
@@ -61,7 +63,7 @@ public class Shooter {
        } else{
            StageTwoTalon.set(off);
            StageOneTalon.set(off *.5);
-           dsLCD.println(Line.kMain6, 1, "Motors Off");
+           dsLCD.println(Line.kUser1, 1, "Motors Off");
        }
        
        if (shootA){
