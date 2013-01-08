@@ -54,7 +54,7 @@ public class Shooter {
        
        if (shootStart){
            StageOneTalon.set(idle);
-           dsLCD.println(Line.kMain6, StageOneMotorPWM, "Motors On");
+           dsLCD.println(Line.kUser1, 1, "Motors On");
        } else{
            StageOneTalon.set(off);
        }

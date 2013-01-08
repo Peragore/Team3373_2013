@@ -15,14 +15,14 @@ public class drive {
     Joystick drivestick = new Joystick(1);
     RobotDrive drive = new RobotDrive(1,2);
     boolean driveA = drivestick.getRawButton(1);
-    double driveLstickX =  drivestick.getRawAxis(1);
-    double driveLstickY =  drivestick.getRawAxis(2);
+    double driveLX =  drivestick.getRawAxis(1);
+    double driveLY =  drivestick.getRawAxis(2);
     
     public void Driving(double a){
-    if (driveLstickY >= 0 && driveLstickY <= 1){
+    if (driveLY >= 0 && driveLY <= 1){
         
     }
-    if (driveLstickY <= 0 && driveLstickY >= -1 ){
+    if (driveLY <= 0 && driveLY >= -1 ){
         
     }
  }
