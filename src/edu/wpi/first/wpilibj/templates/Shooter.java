@@ -50,9 +50,11 @@ public class Shooter {
    
    public Shooter() {
        dsLCD = DriverStationLCD.getInstance();
-       dsLCD.println(Line.kUser1, StageOneMotorPWM, "");
+       dsLCD.updateLCD();
+       
        if (shootStart){
            StageOneTalon.set(idle);
+           dsLCD.println(Line.kMain6, StageOneMotorPWM, "Motors On");
        } else{
            StageOneTalon.set(off);
        }
