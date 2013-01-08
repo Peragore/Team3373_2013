@@ -48,7 +48,9 @@ public class Shooter {
    double currentRPMT2 = StageTwoTalon.get();
 
 
-  
+     /**************
+    * Shooter code *
+    * *************/
    
    public Shooter() {
        dsLCD = DriverStationLCD.getInstance();
@@ -57,22 +59,30 @@ public class Shooter {
        if (shootStart){
            StageTwoTalon.set(idle);
            StageOneTalon.set(idle * .5);
+           //Stage one is set to be 50% of Stage 2
            dsLCD.println(Line.kUser1, 1, "Motors On");
        } else{
            StageTwoTalon.set(off);
            StageOneTalon.set(off *.5);
+           //Stage one is set to be 50% of Stage 2
            dsLCD.println(Line.kMain6, 1, "Motors Off");
        }
        
        if (shootA){
+           //This code is used to subtrack the current speed of Stage 2
            StageOneTalon.set((currentRPMT2 + 100) *.5);
            dsLCD.println(Line.kUser2, 1, "Adding 100 RPM");
        }
        
        if (shootB){
+           //This code is used to subtrack the current speed of Stage 2
            StageTwoTalon.set(currentRPMT2 - 100);
            StageOneTalon.set((currentRPMT2 - 100) *.5);       
            dsLCD.println(Line.kUser2, 1, "Removing 100 RPM.");
+           if (StageTwoTalon.get() < 0){
+               StageTwoTalon.set(off);
+               //if the speed is less than 0, turn off
+           }
        }
         
     }
