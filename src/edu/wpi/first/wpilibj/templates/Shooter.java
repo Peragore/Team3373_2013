@@ -72,7 +72,7 @@ public class Shooter {
        if (shootB){
            StageTwoTalon.set(currentRPMT2 - 100);
            StageOneTalon.set((currentRPMT2 - 100) *.5);       
-           dsLCD.println(Line.kUser2, 1, "Removing 100 RPM");
+           dsLCD.println(Line.kUser2, 1, "Removing 100 RPM.");
        }
         
     }
