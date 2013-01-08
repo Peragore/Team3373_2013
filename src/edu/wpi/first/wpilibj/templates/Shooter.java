@@ -16,12 +16,19 @@ public class Shooter {
    Talon StageOneTalon = new Talon(StageOneMotorPWM); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(StageTwoMotorPWM); //Creates instance of StageTwo PWM 
    DriverStationLCD dsLCD;
+   Joystick shootStick = new Joystick(2);
+   
+   boolean shootStart = shootStick.getRawButton(8);
 
 
+  
+   
    public Shooter() {
        dsLCD = DriverStationLCD.getInstance();
        dsLCD.println(Line.kUser1, StageOneMotorPWM, "");
-       
+       if (shootStart){
+           
+       }
     
         
     }
