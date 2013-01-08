@@ -18,7 +18,32 @@ public class Shooter {
    DriverStationLCD dsLCD;
    Joystick shootStick = new Joystick(2);
    
+   /************************
+    * XBOX Shooter Buttons *
+    * *********************/
+   
+   boolean shootA = shootStick.getRawButton(1);
+   boolean shootB = shootStick.getRawButton(2);
+   boolean shootX = shootStick.getRawButton(3);
+   boolean shootY = shootStick.getRawButton(4);
+   boolean shootRB = shootStick.getRawButton(5);
+   boolean shootLB = shootStick.getRawButton(6);
+   boolean shootBack = shootStick.getRawButton(7); 
    boolean shootStart = shootStick.getRawButton(8);
+   
+   /************************
+    * XBOX Shooter Axes *
+    * *********************/
+   
+   double shootLX = shootStick.getRawAxis(1);
+   double shootLY = shootStick.getRawAxis(2);
+   double shootTriggers = shootStick.getRawAxis(3);
+   double shootRX = shootStick.getRawAxis(4);
+   double shootRY = shootStick.getRawAxis(5);
+   double shootDP = shootStick.getRawAxis(6);
+   
+   int idle = 1;
+   int off = 0;
 
 
   
@@ -27,9 +52,11 @@ public class Shooter {
        dsLCD = DriverStationLCD.getInstance();
        dsLCD.println(Line.kUser1, StageOneMotorPWM, "");
        if (shootStart){
-           
+           StageOneTalon.set(idle);
+       } else{
+           StageOneTalon.set(off);
        }
-    
+       
         
     }
 }
