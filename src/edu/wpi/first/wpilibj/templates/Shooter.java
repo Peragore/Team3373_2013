@@ -4,6 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 
 /**
@@ -44,6 +45,7 @@ public class Shooter {
    
    int idle = 1;
    int off = 0;
+   double currentRPMT2 = StageTwoTalon.get();
 
 
   
@@ -53,12 +55,25 @@ public class Shooter {
        dsLCD.updateLCD();
        
        if (shootStart){
-           StageOneTalon.set(idle);
+           StageTwoTalon.set(idle);
+           StageOneTalon.set(idle * .5);
            dsLCD.println(Line.kUser1, 1, "Motors On");
        } else{
-           StageOneTalon.set(off);
+           StageTwoTalon.set(off);
+           StageOneTalon.set(off *.5);
+           dsLCD.println(Line.kMain6, 1, "Motors Off");
        }
        
+       if (shootA){
+           StageOneTalon.set((currentRPMT2 + 100) *.5);
+           dsLCD.println(Line.kUser2, 1, "Adding 100 RPM");
+       }
+       
+       if (shootB){
+           StageTwoTalon.set(currentRPMT2 - 100);
+           StageOneTalon.set((currentRPMT2 - 100) *.5);       
+           dsLCD.println(Line.kUser2, 1, "Removing 100 RPM");
+       }
         
     }
 }
