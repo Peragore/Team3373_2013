@@ -61,6 +61,9 @@ public class Shooter extends Team3373 {
        dsLCD = DriverStationLCD.getInstance();
        dsLCD.updateLCD();
        
+       /******************
+        * Initialization *
+        * ****************/
        
        if (shootStart){
            StageTwoTalon.set(idle);
@@ -71,10 +74,14 @@ public class Shooter extends Team3373 {
            StageOneTalon.set(off *stageOneScaler);
            dsLCD.println(Line.kUser1, 7, "Off");
        }
+       /*********************
+        * Increase/Decrease *
+        * *******************/
        
        if (shootA){
            StageTwoTalon.set(currentRPMT2 + (RPMIncrease*shootSpeedScale));
            StageOneTalon.set((currentRPMT2 + RPMIncrease) *stageOneScaler);
+           target = currentRPMT2 + RPMIncrease;
            dsLCD.println(Line.kUser2, 1, "Adding " + RPMIncrease + "RPM");
        }
        
@@ -82,6 +89,7 @@ public class Shooter extends Team3373 {
            //This code is used to subtrack the current speed of Stage 2
            StageTwoTalon.set(currentRPMT2 - RPMIncrease);
            StageOneTalon.set((currentRPMT2 - RPMIncrease) *.5);       
+           target = currentRPMT2 - RPMIncrease;
            dsLCD.println(Line.kUser2, 1, "Removing " + RPMIncrease + "RPM.");
            if (StageTwoTalon.get() < 0){
                StageTwoTalon.set(off);
@@ -92,17 +100,11 @@ public class Shooter extends Team3373 {
        if (shootX){
            stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
-           dsLCD.println(Line.kUser5, 1, "Adding 5% to Stage One Percentile");
+           dsLCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
        } else if (shootY){
            stageOneScaler -= 0.05;
            //changes stage1 percentage of stage2 subtracts 5%
-           dsLCD.println(Line.kUser5, 1, "Subtracting 5% to Stage One Percentile");
-       }
-       
-       if (shootA){
-           target = currentRPMT2 + RPMIncrease;
-       } else if (shootB){
-           target = currentRPMT2 - RPMIncrease;
+           dsLCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
        }
        
        if (target > currentRPMT2) {
