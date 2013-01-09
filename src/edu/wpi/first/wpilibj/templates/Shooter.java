@@ -4,8 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.DriverStationLCD;
-import edu.wpi.first.wpilibj.DriverStationLCD.Line;
+import edu.wpi.first.wpilibj.DriverStationLCD.*;
 
 /**
  *
@@ -45,8 +44,12 @@ public class Shooter {
    
    int idle = 1;
    int off = 0;
-   double currentRPMT2 = StageTwoTalon.get();
-
+   double stageOneScaler = .5;
+   double PWMMax = 1;
+   double shootSpeedScale = PWMMax/5300;
+   double currentRPMT2 = StageTwoTalon.get()*shootSpeedScale;
+   double currentRPMT1 = currentRPMT2*stageOneScaler;
+   
 
      /**************
     * Shooter code *
@@ -56,16 +59,23 @@ public class Shooter {
        dsLCD = DriverStationLCD.getInstance();
        dsLCD.updateLCD();
        
+       dsLCD.println(Line.kUser1, 1, "Motors ");
+       dsLCD.println(Line.kUser3, 1, "Stage One Speed: " + (currentRPMT1/currentRPMT2)*100 + "%");
+       
        if (shootStart){
            StageTwoTalon.set(idle);
            StageOneTalon.set(idle * .5);
+
            //Stage one is set to be 50% of Stage 2
            dsLCD.println(Line.kUser1, 1, "Motors On");
+
        } else{
            StageTwoTalon.set(off);
            StageOneTalon.set(off *.5);
+
            //Stage one is set to be 50% of Stage 2
            dsLCD.println(Line.kMain6, 1, "Motors Off");
+
        }
        
        if (shootA){
