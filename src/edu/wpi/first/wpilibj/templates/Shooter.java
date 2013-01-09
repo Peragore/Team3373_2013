@@ -30,6 +30,7 @@ public class Shooter extends Team3373 {
    boolean shootLB = shootStick.getRawButton(6);
    boolean shootBack = shootStick.getRawButton(7); 
    boolean shootStart = shootStick.getRawButton(8);
+   boolean test;
    
    /************************
     * XBOX Shooter Axes *
