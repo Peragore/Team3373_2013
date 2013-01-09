@@ -90,9 +90,11 @@ public class Shooter extends Team3373 {
        if (shootX){
            stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
+           dsLCD.println(Line.kUser5, 1, "Adding 5% to Stage One Percentile");
        } else if (shootY){
            stageOneScaler -= 0.05;
            //changes stage1 percentage of stage2 subtracts 5%
+           dsLCD.println(Line.kUser5, 1, "Subtracting 5% to Stage One Percentile");
        }
        
        if (shootA){
