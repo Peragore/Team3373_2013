@@ -51,7 +51,9 @@ public class Shooter {
    double currentRPMT1 = currentRPMT2*stageOneScaler;
    
 
-  
+     /**************
+    * Shooter code *
+    * *************/
    
    public Shooter() {
        dsLCD = DriverStationLCD.getInstance();
@@ -77,9 +79,14 @@ public class Shooter {
        }
        
        if (shootB){
+           //This code is used to subtrack the current speed of Stage 2
            StageTwoTalon.set(currentRPMT2 - 100);
            StageOneTalon.set((currentRPMT2 - 100) *.5);       
            dsLCD.println(Line.kUser2, 1, "Removing 100 RPM.");
+           if (StageTwoTalon.get() < 0){
+               StageTwoTalon.set(off);
+               //if the speed is less than 0, turn off
+           }
        }
         
     }
