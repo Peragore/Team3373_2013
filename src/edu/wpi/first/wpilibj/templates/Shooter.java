@@ -58,20 +58,21 @@ public class Shooter {
        dsLCD.updateLCD();
        
        dsLCD.println(Line.kUser1, 1, "Motors ");
-       dsLCD.println(Line.kUser3, 1, "Stage One Speed: " + (currentRPMT1/currentRPMT2)*100 + "%");
+       dsLCD.println(Line.kUser3, 1, "Stage One Speed Perentile: " + (currentRPMT1/currentRPMT2)*100 + "%");
        
        if (shootStart){
            StageTwoTalon.set(idle);
-           StageOneTalon.set(idle * .5);
+           StageOneTalon.set(idle * stageOneScaler);
            dsLCD.println(Line.kUser1, 7, "On");
-       } else{
+       } else if (shootBack){
            StageTwoTalon.set(off);
-           StageOneTalon.set(off *.5);
+           StageOneTalon.set(off *stageOneScaler);
            dsLCD.println(Line.kUser1, 7, "Off");
        }
        
        if (shootA){
-           StageOneTalon.set((currentRPMT2 + 100) *.5);
+           StageTwoTalon.set(currentRPMT2 + (100*shootSpeedScale));
+           StageOneTalon.set((currentRPMT2 + 100) *stageOneScaler);
            dsLCD.println(Line.kUser2, 1, "Adding 100 RPM");
        }
        
