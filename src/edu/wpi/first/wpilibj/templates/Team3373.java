@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.templates.Shooter;
  * functions corresponding to each mode, as described in the SimpleRobot
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the manifest file in the resource
- * directory.
+ * directory. 
  */
 public class Team3373 extends SimpleRobot{
     /**
