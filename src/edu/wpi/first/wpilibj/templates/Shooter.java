@@ -4,7 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.DriverStationLCD.*;
+import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 
 /**
  *
@@ -43,8 +43,7 @@ public class Shooter extends Team3373 {
    double shootRY = shootStick.getRawAxis(5);
    double shootDP = shootStick.getRawAxis(6);
    
-   int idle = 1;
-   int off = 0;
+  
    double stageOneScaler = .5;
    double PWMMax = 1;
    double shootSpeedScale = PWMMax/5300;
@@ -52,6 +51,8 @@ public class Shooter extends Team3373 {
    double currentRPMT1 = currentRPMT2*stageOneScaler;
    double target;
    double RPMIncrease = 250;
+   double idle = 1 * shootSpeedScale;
+   double off = 0;
 
      /**************
     * Shooter code *
