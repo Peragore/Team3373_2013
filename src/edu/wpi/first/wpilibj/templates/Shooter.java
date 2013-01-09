@@ -49,7 +49,7 @@ public class Shooter {
    double shootSpeedScale = PWMMax/5300;
    double currentRPMT2 = StageTwoTalon.get()*shootSpeedScale;
    double currentRPMT1 = currentRPMT2*stageOneScaler;
-   
+   double target;
 
      /**************
     * Shooter code *
@@ -59,8 +59,6 @@ public class Shooter {
        dsLCD = DriverStationLCD.getInstance();
        dsLCD.updateLCD();
        
-       dsLCD.println(Line.kUser1, 1, "Motors ");
-       dsLCD.println(Line.kUser3, 1, "Stage One Speed Perentile: " + (currentRPMT1/currentRPMT2)*100 + "%");
        
        if (shootStart){
            StageTwoTalon.set(idle);
@@ -88,6 +86,23 @@ public class Shooter {
                //if the speed is less than 0, turn off
            }
        }
+       if (shootA){
+           target = currentRPMT2 + 100;
+       } else if (shootB){
+           target = currentRPMT2 - 100;
+       }
+       
+       if (target > currentRPMT2) {
+           dsLCD.println(Line.kUser5, 1, "Accelerating");
+       } else if (target < currentRPMT2) {
+           dsLCD.println(Line.kUser5, 1, "Decelerating");
+       }
+       
+       dsLCD.println(Line.kUser1, 1, "Motors ");
+       dsLCD.println(Line.kUser3, 1, "Stage One Speed Perentile: " + (currentRPMT1/currentRPMT2)*100 + "%");
+       dsLCD.println(Line.kUser4, 1, "Target Speed: " + (target) + "RPM");
+       
+       dsLCD.updateLCD();
         
     }
 }
