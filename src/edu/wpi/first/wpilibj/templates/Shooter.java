@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.DriverStationLCD.*;
  *
  * @author Philip2
  */
-public class Shooter {
+public class Shooter extends Team3373 {
    int StageOneMotorPWM = 1; //Declares channel of StageOne PWM
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
    Talon StageOneTalon = new Talon(StageOneMotorPWM); //Creates instance of StageOne PWM
@@ -55,7 +55,7 @@ public class Shooter {
     * Shooter code *
     * *************/
    
-   public Shooter() {
+   public void Shooter() {
        dsLCD = DriverStationLCD.getInstance();
        dsLCD.updateLCD();
        

@@ -12,7 +12,7 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.*;
 //import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.SimpleRobot;
-
+import edu.wpi.first.wpilibj.templates.*;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the SimpleRobot
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.*;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Team3373 extends SimpleRobot {
+public class Team3373 extends SimpleRobot implements Shooter {
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
@@ -29,7 +29,7 @@ public class Team3373 extends SimpleRobot {
     Joystick leftStick = new Joystick(1);
     Joystick rightStick = new Joystick(2);
     MotorSafety safety = new MotorSafetyImpl();
-
+    Shooter Shooter = new Shooter();
     public Team3373(){
         
     }
@@ -49,7 +49,7 @@ public class Team3373 extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-
+        Shooter();
     }
 
     private static class MotorSafetyImpl implements MotorSafety {
