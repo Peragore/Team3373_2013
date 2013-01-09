@@ -50,7 +50,7 @@ public class Shooter extends Team3373 {
    double currentRPMT2 = StageTwoTalon.get()*shootSpeedScale;
    double currentRPMT1 = currentRPMT2*stageOneScaler;
    double target;
-   double RPMIncrease = 100;
+   double RPMIncrease = 250;
 
      /**************
     * Shooter code *
