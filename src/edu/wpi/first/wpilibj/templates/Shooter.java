@@ -86,6 +86,15 @@ public class Shooter extends Team3373 {
                //if the speed is less than 0, turn off
            }
        }
+       
+       if (shootX){
+           stageOneScaler += 0.05;
+           //changes stage1 percentage of stage2 adds 5%
+       } else if (shootY){
+           stageOneScaler -= 0.05;
+           //changes stage1 percentage of stage2 subtracts 5%
+       }
+       
        if (shootA){
            target = currentRPMT2 + 100;
        } else if (shootB){
@@ -99,7 +108,7 @@ public class Shooter extends Team3373 {
        }
        
        dsLCD.println(Line.kUser1, 1, "Motors ");
-       dsLCD.println(Line.kUser3, 1, "Stage One Speed Perentile: " + (currentRPMT1/currentRPMT2)*100 + "%");
+       dsLCD.println(Line.kUser3, 1, "Stage One Speed Percentile: " + (currentRPMT1/currentRPMT2)*100 + "%");
        dsLCD.println(Line.kUser4, 1, "Target Speed: " + (target) + "RPM");
        
        dsLCD.updateLCD();
