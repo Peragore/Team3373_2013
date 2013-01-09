@@ -36,17 +36,20 @@ public class Shooter extends Team3373 {
     * XBOX Shooter Axes *
     * *********************/
    
-   double shootLX = shootStick.getRawAxis(1);
+   double shootLX = shootStick.getRawAxis(1); 
    double shootLY = shootStick.getRawAxis(2);
    double shootTriggers = shootStick.getRawAxis(3);
    double shootRX = shootStick.getRawAxis(4);
    double shootRY = shootStick.getRawAxis(5);
    double shootDP = shootStick.getRawAxis(6);
    
-  
-   double stageOneScaler = .5;
-   double PWMMax = 1;
-   double shootSpeedScale = PWMMax/5300;
+  /*********************************
+   * Math/Shooter Action Variables *
+   *********************************/
+   
+   double stageOneScaler = .5; //What stage one is multiplied by in order to make it a pecentage of stage 2
+   double PWMMax = 1; //maximum voltage sent to motor
+   double shootSpeedScale = PWMMax/5300; //Scaler for voltage to RPM. Highly experimental!!
    double currentRPMT2 = StageTwoTalon.get()*shootSpeedScale;
    double currentRPMT1 = currentRPMT2*stageOneScaler;
    double target;
