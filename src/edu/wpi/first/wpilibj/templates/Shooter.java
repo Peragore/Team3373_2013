@@ -5,6 +5,7 @@
 package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.DriverStationLCD.Line;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -15,7 +16,8 @@ public class Shooter extends Team3373 {
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
    Talon StageOneTalon = new Talon(StageOneMotorPWM); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(StageTwoMotorPWM); //Creates instance of StageTwo PWM 
-   DriverStationLCD dsLCD;
+   DriverStationLCD LCD;
+   SmartDashboard smartDashboard;
    Joystick shootStick = new Joystick(2);
    
    /************************
@@ -68,8 +70,9 @@ public class Shooter extends Team3373 {
     * *************/
    
    public void Shooter() {
-       dsLCD = DriverStationLCD.getInstance();
-       dsLCD.updateLCD();
+       LCD = DriverStationLCD.getInstance();
+       LCD.updateLCD();
+       target = ShooterSpeedMax;
        
        /******************
         * Initialization *
@@ -78,11 +81,11 @@ public class Shooter extends Team3373 {
        if (shootStart){
            StageTwoTalon.set(idle);
            StageOneTalon.set(idle * stageOneScaler);
-           dsLCD.println(Line.kUser1, 7, "On");
+           LCD.println(Line.kUser1, 7, "On");
        } else if (shootBack){
            StageTwoTalon.set(off);
            StageOneTalon.set(off *stageOneScaler);
-           dsLCD.println(Line.kUser1, 7, "Off");
+           LCD.println(Line.kUser1, 7, "Off");
        }
     
        /*********************
@@ -93,7 +96,7 @@ public class Shooter extends Team3373 {
            StageTwoTalon.set(currentRPMT2 + (RPMIncrease*ShooterSpeedScale));
            StageOneTalon.set((currentRPMT2 + RPMIncrease) *stageOneScaler);
            target = currentRPMT2 + RPMIncrease;
-           dsLCD.println(Line.kUser2, 1, "Adding " + RPMIncrease + "RPM");
+           LCD.println(Line.kUser2, 1, "Adding " + RPMIncrease + "RPM");
        }
        
        if (shootB){
@@ -101,7 +104,7 @@ public class Shooter extends Team3373 {
            StageTwoTalon.set(currentRPMT2 - RPMIncrease);
            StageOneTalon.set((currentRPMT2 - RPMIncrease) *.5);       
            target = currentRPMT2 - RPMIncrease;
-           dsLCD.println(Line.kUser2, 1, "Removing " + RPMIncrease + "RPM.");
+           LCD.println(Line.kUser2, 1, "Removing " + RPMIncrease + "RPM.");
            if (StageTwoTalon.get() < 0){
                StageTwoTalon.set(off);
                //if the speed is less than 0, turn off
@@ -111,24 +114,24 @@ public class Shooter extends Team3373 {
        if (shootX){
            stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
-           dsLCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
+           LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
        } else if (shootY){
            stageOneScaler -= 0.05;
            //changes stage1 percentage of stage2 subtracts 5%
-           dsLCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
+           LCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
        }
        
        if (target > currentRPMT2) {
-           dsLCD.println(Line.kUser5, 1, "Accelerating");
+           LCD.println(Line.kUser5, 1, "Accelerating");
        } else if (target < currentRPMT2) {
-           dsLCD.println(Line.kUser5, 1, "Decelerating");
+           LCD.println(Line.kUser5, 1, "Decelerating");
        }
        
-       dsLCD.println(Line.kUser1, 1, "Motors ");
-       dsLCD.println(Line.kUser3, 1, "Stage One Speed Percentile: " + (currentRPMT1/currentRPMT2)*100 + "%");
-       dsLCD.println(Line.kUser4, 1, "Target Speed: " + (target) + "RPM");
+       LCD.println(Line.kUser1, 1, "Motors ");
+       LCD.println(Line.kUser3, 1, "Stage One Speed Percentile: " + (currentRPMT1/currentRPMT2)*100 + "%");
+       LCD.println(Line.kUser4, 1, "Target Speed: " + (target) + "RPM");
        
-       dsLCD.updateLCD();
+       LCD.updateLCD();
         
     }
 }
