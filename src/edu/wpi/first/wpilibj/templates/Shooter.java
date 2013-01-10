@@ -47,15 +47,21 @@ public class Shooter extends Team3373 {
    * Math/Shooter Action Variables *
    *********************************/
    
+   double ShooterSpeedStage1 = StageOneTalon.get();
+   double ShooterSpeedStage2 = StageTwoTalon.get();
+   double ShooterSpeedMax = 5300;
+   double ShooterSpeedAccel = 250;
    double stageOneScaler = .5; //What stage one is multiplied by in order to make it a pecentage of stage 2
    double PWMMax = 1; //maximum voltage sent to motor
-   double shootSpeedScale = PWMMax/5300; //Scaler for voltage to RPM. Highly experimental!!
-   double currentRPMT2 = StageTwoTalon.get()*shootSpeedScale;
+   double MaxScaler = PWMMax/10000;
+   double ShooterSpeedScale = MaxScaler * ShooterSpeedMax; //Scaler for voltage to RPM. Highly experimental!!
+   double currentRPMT2 = StageTwoTalon.get()*ShooterSpeedScale;
    double currentRPMT1 = currentRPMT2*stageOneScaler;
    double target;
    double RPMIncrease = 250;
-   double idle = 1 * shootSpeedScale;
+   double idle = 1 * ShooterSpeedScale;
    double off = 0;
+
 
      /**************
     * Shooter code *
@@ -78,12 +84,13 @@ public class Shooter extends Team3373 {
            StageOneTalon.set(off *stageOneScaler);
            dsLCD.println(Line.kUser1, 7, "Off");
        }
+    
        /*********************
         * Increase/Decrease *
         * *******************/
        
        if (shootA){
-           StageTwoTalon.set(currentRPMT2 + (RPMIncrease*shootSpeedScale));
+           StageTwoTalon.set(currentRPMT2 + (RPMIncrease*ShooterSpeedScale));
            StageOneTalon.set((currentRPMT2 + RPMIncrease) *stageOneScaler);
            target = currentRPMT2 + RPMIncrease;
            dsLCD.println(Line.kUser2, 1, "Adding " + RPMIncrease + "RPM");
