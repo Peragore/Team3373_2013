@@ -45,8 +45,8 @@ public class Shooter extends Team3373 {
         * *******************/
 public void speedIncrease(){ //increases speed by amount/second designated. Needs the per second part
        
-           StageTwoTalon.set(define.target);
-           StageOneTalon.set(define.target*stageOneScaler);
+           define.RPMTarget(1);
+           define.RPMTarget(stageOneScaler);
            LCD.println(Line.kUser2, 1, "Adding " + define.target + "RPM");
            LCD.updateLCD();
  }
