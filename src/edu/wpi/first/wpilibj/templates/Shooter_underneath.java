@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.templates.Team3373;
 public class Shooter_underneath extends Shooter {
     public void RPMTarget(){ //defines target based on input
         if (shootA){
-            target = (RPMModifier *ShooterSpeedScale) + currentRPMT2;
+            super.target = (RPMModifier *ShooterSpeedScale) + currentRPMT2;
         } else if (shootB){
-            target = (( -RPMModifier * ShooterSpeedScale) + currentRPMT2);
+            super.target = (( -RPMModifier * ShooterSpeedScale) + currentRPMT2);
         }
         
     }
