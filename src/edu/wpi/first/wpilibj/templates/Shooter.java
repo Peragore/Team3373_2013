@@ -6,13 +6,13 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.templates.Shooter_underneath;
 /**
  *
  * @author Philip2
  */
 public class Shooter extends Team3373 {
-
+    Shooter_underneath define = new Shooter_underneath();
    
      /**************
     * Shooter code
@@ -45,19 +45,17 @@ public class Shooter extends Team3373 {
         * *******************/
 public void speedIncrease(){ //increases speed by amount/second designated. Needs the per second part
        
-           StageTwoTalon.set(currentRPMT2 + (RPMIncrease*ShooterSpeedScale));
-           StageOneTalon.set((currentRPMT2 + RPMIncrease) *stageOneScaler);
-           target = currentRPMT2 + RPMIncrease;
-           LCD.println(Line.kUser2, 1, "Adding " + RPMIncrease + "RPM");
+           StageTwoTalon.set(define.target);
+           StageOneTalon.set(define.target*stageOneScaler);
+           LCD.println(Line.kUser2, 1, "Adding " + define.target + "RPM");
            LCD.updateLCD();
  }
        
  public void speedDecrease() { //decrease speed by set number. Works like speedIncrease() in reverse
            //This code is used to subtrack the current speed of Stage 2
-           StageTwoTalon.set(currentRPMT2 - RPMIncrease);
-           StageOneTalon.set((currentRPMT2 - RPMIncrease) *.5);       
-           target = currentRPMT2 - RPMIncrease;
-           LCD.println(Line.kUser2, 1, "Removing " + RPMIncrease + "RPM.");
+           StageTwoTalon.set(define.target);
+           StageOneTalon.set(define.target *.5);       
+           LCD.println(Line.kUser2, 1, "Removing " + define.target + "RPM.");
            LCD.updateLCD();
            if (StageTwoTalon.get() <= 0){
                StageTwoTalon.set(off);

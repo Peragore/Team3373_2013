@@ -76,7 +76,7 @@ public class Team3373 extends SimpleRobot{
    double currentRPMT2 = StageTwoTalon.get()*ShooterSpeedScale;
    double currentRPMT1 = currentRPMT2*stageOneScaler;
    double target;
-   double RPMIncrease = 250;
+   double RPMModifier = 250;
    double idle = 1 * ShooterSpeedScale;
    double off = 0;
     public Team3373(){
@@ -104,7 +104,6 @@ public class Team3373 extends SimpleRobot{
             objShooter.speedDecrease();
         }
         
-        if (shootA)
         
         LCD.println(DriverStationLCD.Line.kUser1, 1, "Test");
     }
