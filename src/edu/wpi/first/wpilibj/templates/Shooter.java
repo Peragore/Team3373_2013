@@ -12,72 +12,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Philip2
  */
 public class Shooter extends Team3373 {
-   int StageOneMotorPWM = 1; //Declares channel of StageOne PWM
-   int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
-   Talon StageOneTalon = new Talon(StageOneMotorPWM); //Creates instance of StageOne PWM
-   Talon StageTwoTalon = new Talon(StageTwoMotorPWM); //Creates instance of StageTwo PWM 
-   DriverStationLCD LCD;
-   SmartDashboard smartDashboard;
-   Joystick shootStick = new Joystick(2);
-   
-   /************************
-    * XBOX Shooter Buttons *
-    * *********************/
-   
-   boolean shootA = shootStick.getRawButton(1);
-   boolean shootB = shootStick.getRawButton(2);
-   boolean shootX = shootStick.getRawButton(3);
-   boolean shootY = shootStick.getRawButton(4);
-   boolean shootRB = shootStick.getRawButton(5);
-   boolean shootLB = shootStick.getRawButton(6);
-   boolean shootBack = shootStick.getRawButton(7); 
-   boolean shootStart = shootStick.getRawButton(8);
-   boolean test;
-   
-   /************************
-    * XBOX Shooter Axes *
-    * *********************/
-   
-   double shootLX = shootStick.getRawAxis(1); 
-   double shootLY = shootStick.getRawAxis(2);
-   double shootTriggers = shootStick.getRawAxis(3);
-   double shootRX = shootStick.getRawAxis(4);
-   double shootRY = shootStick.getRawAxis(5);
-   double shootDP = shootStick.getRawAxis(6);
-   
-  /*********************************
-   * Math/Shooter Action Variables *
-   *********************************/
-   
-   double ShooterSpeedStage1 = StageOneTalon.get();
-   double ShooterSpeedStage2 = StageTwoTalon.get();
-   double ShooterSpeedMax = 5300;
-   double ShooterSpeedAccel = 250;
-   double stageOneScaler = .5; //What stage one is multiplied by in order to make it a pecentage of stage 2
-   double PWMMax = 1; //maximum voltage sent to motor
-   double MaxScaler = PWMMax/10000;
-   double ShooterSpeedScale = MaxScaler * ShooterSpeedMax; //Scaler for voltage to RPM. Highly experimental!!
-   double currentRPMT2 = StageTwoTalon.get()*ShooterSpeedScale;
-   double currentRPMT1 = currentRPMT2*stageOneScaler;
-   double target;
-   double RPMIncrease = 250;
-   double idle = 1 * ShooterSpeedScale;
-   double off = 0;
 
-
+   
      /**************
     * Shooter code *
     * *************/
    
-   public void Shooter() {
+   public void shootInit() {
        LCD = DriverStationLCD.getInstance();
        LCD.updateLCD();
        target = ShooterSpeedMax;
+   }
        
        /******************
         * Initialization *
         * ****************/
-       
+ public void Start(){      
        if (shootStart){
            StageTwoTalon.set(idle);
            StageOneTalon.set(idle * stageOneScaler);
@@ -87,11 +37,11 @@ public class Shooter extends Team3373 {
            StageOneTalon.set(off *stageOneScaler);
            LCD.println(Line.kUser1, 7, "Off");
        }
-    
+ }
        /*********************
         * Increase/Decrease *
         * *******************/
-       
+public void speedModifier(){       
        if (shootA){
            StageTwoTalon.set(currentRPMT2 + (RPMIncrease*ShooterSpeedScale));
            StageOneTalon.set((currentRPMT2 + RPMIncrease) *stageOneScaler);
@@ -110,7 +60,8 @@ public class Shooter extends Team3373 {
                //if the speed is less than 0, turn off
            }
        }
-       
+}
+public void percentageModifier() {       
        if (shootX){
            stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
@@ -120,13 +71,14 @@ public class Shooter extends Team3373 {
            //changes stage1 percentage of stage2 subtracts 5%
            LCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
        }
+}       
        
-       if (target > currentRPMT2) {
+public void shooterPrint() {
+        if (target > currentRPMT2) {
            LCD.println(Line.kUser5, 1, "Accelerating");
        } else if (target < currentRPMT2) {
            LCD.println(Line.kUser5, 1, "Decelerating");
        }
-       
        LCD.println(Line.kUser1, 1, "Motors ");
        LCD.println(Line.kUser3, 1, "Stage One Speed Percentile: " + (currentRPMT1/currentRPMT2)*100 + "%");
        LCD.println(Line.kUser4, 1, "Target Speed: " + (target) + "RPM");
