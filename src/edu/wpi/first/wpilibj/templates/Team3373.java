@@ -93,10 +93,21 @@ public class Team3373 extends SimpleRobot{
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
+        while (isOperatorControl() ){
         //Shooter objShooter = new Shooter();
         objShooter.shootInit();
+        objShooter.shooterPrint();
+        LCD.updateLCD();
+        if (shootA) { //increases speed
+            objShooter.speedIncrease();
+        } else if (shootB) { //decreases speed
+            objShooter.speedDecrease();
+        }
+        
+        if (shootA)
+        
         LCD.println(DriverStationLCD.Line.kUser1, 1, "Test");
     }
-
+    }
     
 }
