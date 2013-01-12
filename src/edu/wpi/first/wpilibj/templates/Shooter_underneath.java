@@ -15,10 +15,8 @@ public class Shooter_underneath extends Shooter {
     public void RPMTarget(double a){ //defines target based on input. Appeaers to be better than speed increase. can probbaly be used in place of a bunch of code.
         if (shootA){
             target = ((RPMModifier *ShooterSpeedScale) + currentRPMT2) * a;
-            StageTwoTalon.set(target);
         } else if (shootB){
             target = (( -RPMModifier * ShooterSpeedScale) + currentRPMT2) * a;
-            StageTwoTalon.set(target);
         }
         
     }
