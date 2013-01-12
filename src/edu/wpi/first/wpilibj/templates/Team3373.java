@@ -102,8 +102,11 @@ public class Team3373 extends SimpleRobot{
             objShooter.speedIncrease();
         } else if (shootB) { //decreases speed
             objShooter.speedDecrease();
+        } else if (shootX){
+            objShooter.percentageAdd();
+        } else if (shootY){
+            objShooter.percentageSubtract();
         }
-        
         
         LCD.println(DriverStationLCD.Line.kUser1, 1, "Test");
     }
