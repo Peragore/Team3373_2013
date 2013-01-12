@@ -21,4 +21,12 @@ public class Deadband{
             }
         }
     }*/
+    
+    public boolean Range (double topNumber, double bottomNumber, double value){
+        
+        if (bottomNumber > value && value > topNumber){
+        
+        }        
+    }
+    
 }
