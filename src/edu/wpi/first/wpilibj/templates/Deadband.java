@@ -10,16 +10,15 @@ package edu.wpi.first.wpilibj.templates;
  */
 public class Deadband{
     
-    
+    /*
     static int flag = 0;
     
-    public static void Range (double target, double bottomNumber, double value, double increase){
-        while (target > value || flag != 1){
+    public static void Range (double targetValue, double bottomNumber, double value, double increase){
+        while (targetValue > value && flag != 1){
             value += increase;
-            if (target <= value){
+            if (targetValue <= value){
                 flag += 1;
             }
         }
-        
-    }
+    }*/
 }
