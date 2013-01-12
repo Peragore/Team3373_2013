@@ -101,10 +101,17 @@ public class Team3373 extends SimpleRobot{
         LCD.updateLCD();
         if (shootA) { //increases speed
             objShooter.speedIncrease();
+            System.out.println("Pressing A");
         } else if (shootB) { //decreases speed
             objShooter.speedDecrease();
+            System.out.println("Pressing B");
+        } else if (shootX){
+            objShooter.percentageAdd();
+            System.out.println("Pressing X");
+        } else if (shootY){
+            objShooter.percentageSubtract();
+            System.out.println("Pressing Y");
         }
-        
         
         LCD.println(DriverStationLCD.Line.kUser1, 1, "Test");
     }
