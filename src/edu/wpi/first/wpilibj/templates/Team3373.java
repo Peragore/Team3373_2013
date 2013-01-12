@@ -34,7 +34,7 @@ public class Team3373 extends SimpleRobot{
    DriverStationLCD LCD;
    SmartDashboard smartDashboard;
    Joystick shootStick = new Joystick(2);
-   Shooter objShooter = new Shooter();
+   Shooter objShooter = new Shooter(this);
    
    /************************
     * XBOX Shooter Buttons *
