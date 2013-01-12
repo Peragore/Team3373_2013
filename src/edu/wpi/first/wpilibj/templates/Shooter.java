@@ -6,38 +6,53 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.templates.Shooter_underneath;
+
 /**
  *
  * @author Philip2
  */
-public class Shooter extends Team3373 {
-    Shooter_underneath define = new Shooter_underneath();
+public class Shooter {
+
+
    
      /**************
     * Shooter code
     * *************/
+   Team3373 team;
    
-   public void shootInit() { //to be called at beginning of teleoperated
-       LCD = DriverStationLCD.getInstance();
-       LCD.updateLCD();
-       target = ShooterSpeedMax;
+    public Shooter(Team3373 t){
+       team = t;
+   }
+   
+   public double RPMtarget(double a){ //defines target based on input. Appeaers to be better than speed increase. can probbaly be used in place of a bunch of code.
+      if (team.shootA){
+           team.target = ((team.RPMModifier * team.ShooterSpeedScale) + team.currentRPMT2) * a;
+       } else if (team.shootB){
+           team.target = (( -team.RPMModifier * team.ShooterSpeedScale) + team.currentRPMT2) * a;
+       }
+   return team.target;
+   }
+    
+    public void shootInit() { //to be called at beginning of teleoperated
+       team.LCD = DriverStationLCD.getInstance();
+       team.LCD.updateLCD();
+       team.target = team.ShooterSpeedMax;
    }
        
        /******************
         * Initialization *
         * ****************/
  public void Start(){ //Initialization code, used to turn motors on and off
-       if (shootStart){
-           StageTwoTalon.set(idle);
-           StageOneTalon.set(idle * stageOneScaler);
-           LCD.println(Line.kUser1, 7, "On");
-           LCD.updateLCD();
-       } else if (shootBack){
-           StageTwoTalon.set(off);
-           StageOneTalon.set(off *stageOneScaler);
-           LCD.println(Line.kUser1, 7, "Off");
-           LCD.updateLCD();
+       if (team.shootStart){
+           team.StageTwoTalon.set(team.idle);
+           team.StageOneTalon.set(team.idle * team.stageOneScaler);
+           team.LCD.println(Line.kUser1, 7, "On");
+           team.LCD.updateLCD();
+       } else if (team.shootBack){
+           team.StageTwoTalon.set(team.off);
+           team.StageOneTalon.set(team.off * team.stageOneScaler);
+           team.LCD.println(Line.kUser1, 7, "Off");
+           team.LCD.updateLCD();
        }
  }
        /*********************
@@ -45,52 +60,52 @@ public class Shooter extends Team3373 {
         * *******************/
 public void speedIncrease(){ //increases speed by amount/second designated. Needs the per second part
        
-           define.RPMTarget(1);
-           define.RPMTarget(stageOneScaler);
-           LCD.println(Line.kUser2, 1, "Adding " + define.target + "RPM");
-           LCD.updateLCD();
+           Shooter.RPMTarget(1);
+           Shooter.RPMTarget(team.stageOneScaler);
+           team.LCD.println(Line.kUser2, 1, "Adding " + team.target + "RPM");
+           team.LCD.updateLCD();
  }
        
  public void speedDecrease() { //decrease speed by set number. Works like speedIncrease() in reverse
            //This code is used to subtrack the current speed of Stage 2
-           StageTwoTalon.set(define.target);
-           StageOneTalon.set(define.target *.5);       
-           LCD.println(Line.kUser2, 1, "Removing " + define.target + "RPM.");
-           LCD.updateLCD();
-           if (StageTwoTalon.get() <= 0){
-               StageTwoTalon.set(off);
+           team.StageTwoTalon.set(team.target);
+           team.StageOneTalon.set(team.target *.5);       
+           team.LCD.println(Line.kUser2, 1, "Removing " + team.target + "RPM.");
+           team.LCD.updateLCD();
+           if (team.StageTwoTalon.get() <= 0){
+               team.StageTwoTalon.set(team.off);
                //if the speed is less than 0, turn off
            }
        }
 
 public void percentageAdd() { //adds 5% to the scaler of stage one       
-           stageOneScaler += 0.05;
+           team.stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
-           LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
-           LCD.updateLCD();
+           team.LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
+           team.LCD.updateLCD();
        } 
 
 public void percentageSubtract() {//reduces percentage, subtracts 5%. i.e. 45% - 40%
-           stageOneScaler -= 0.05;
+           team.stageOneScaler -= 0.05;
            //changes stage1 percentage of stage2 subtracts 5%
-           LCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
-           LCD.updateLCD();
+           team.LCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
+           team.LCD.updateLCD();
        }
        
        
 public void shooterPrint() { // prints different variables. NYI
-        if (target > currentRPMT2) {
-           LCD.println(Line.kUser5, 1, "Accelerating");
-           LCD.updateLCD();
-       } else if (target < currentRPMT2) {
-           LCD.println(Line.kUser5, 1, "Decelerating");
-           LCD.updateLCD();
+        if (RPMtarget() > team.currentRPMT2) {
+           team.LCD.println(Line.kUser5, 1, "Accelerating");
+           team.LCD.updateLCD();
+       } else if (RPMtarget < team.currentRPMT2) {
+           team.LCD.println(Line.kUser5, 1, "Decelerating");
+           team.LCD.updateLCD();
        }
-       LCD.println(Line.kUser1, 1, "Motors ");
-       LCD.updateLCD();
-       LCD.println(Line.kUser3, 1, "Stage One Speed Percentile: " + (currentRPMT1/currentRPMT2)*100 + "%");
-       LCD.updateLCD();
-       LCD.println(Line.kUser4, 1, "Target Speed: " + (target) + "RPM");
-       LCD.updateLCD();        
+       team.LCD.println(Line.kUser1, 1, "Motors ");
+       team.LCD.updateLCD();
+       team.LCD.println(Line.kUser3, 1, "Stage One Speed Percentile: " + (team.currentRPMT1/team.currentRPMT2)*100 + "%");
+       team.LCD.updateLCD();
+       team.LCD.println(Line.kUser4, 1, "Target Speed: " + (RPMtarget) + "RPM");
+       team.LCD.updateLCD();        
     }
 }
