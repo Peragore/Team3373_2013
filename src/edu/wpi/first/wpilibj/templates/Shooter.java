@@ -60,8 +60,8 @@ public class Shooter {
         * *******************/
 public void speedIncrease(){ //increases speed by amount/second designated. Needs the per second part
        
-           Shooter.RPMTarget(1);
-           Shooter.RPMTarget(team.stageOneScaler);
+           RPMtarget(1);
+           RPMtarget(team.stageOneScaler);
            team.LCD.println(Line.kUser2, 1, "Adding " + team.target + "RPM");
            team.LCD.updateLCD();
  }
@@ -94,10 +94,10 @@ public void percentageSubtract() {//reduces percentage, subtracts 5%. i.e. 45% -
        
        
 public void shooterPrint() { // prints different variables. NYI
-        if (RPMtarget() > team.currentRPMT2) {
+        if (RPMtarget(1) > team.currentRPMT2) {
            team.LCD.println(Line.kUser5, 1, "Accelerating");
            team.LCD.updateLCD();
-       } else if (RPMtarget < team.currentRPMT2) {
+       } else if (RPMtarget(1) < team.currentRPMT2) {
            team.LCD.println(Line.kUser5, 1, "Decelerating");
            team.LCD.updateLCD();
        }
@@ -105,7 +105,7 @@ public void shooterPrint() { // prints different variables. NYI
        team.LCD.updateLCD();
        team.LCD.println(Line.kUser3, 1, "Stage One Speed Percentile: " + (team.currentRPMT1/team.currentRPMT2)*100 + "%");
        team.LCD.updateLCD();
-       team.LCD.println(Line.kUser4, 1, "Target Speed: " + (RPMtarget) + "RPM");
+       team.LCD.println(Line.kUser4, 1, "Target Speed: " + (RPMtarget(1)) + "RPM");
        team.LCD.updateLCD();        
     }
 }
