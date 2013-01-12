@@ -79,6 +79,7 @@ public class Team3373 extends SimpleRobot{
    double RPMModifier = 250;
    double idle = 1 * ShooterSpeedScale;
    double off = 0;
+   double change;
     public Team3373(){
         
     }
