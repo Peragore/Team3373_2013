@@ -173,6 +173,8 @@ public class Team3373 extends SimpleRobot{
         
         String currentTime = Double.toString(robotTimer.get());
         LCD.println(Line.kUser6, 1, currentTime);
+        LCD.println(Line.kUser6, 1, "Hi");
+        LCD.println(Line.kUser6, 1, "Bye");
         
         LCD.println(Line.kUser2, 1, "Not pressing");
         LCD.updateLCD();
