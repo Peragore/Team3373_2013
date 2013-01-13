@@ -120,28 +120,51 @@ public class Team3373 extends SimpleRobot{
    double shootRX = shootStick.getRawAxis(4);
    double shootRY = shootStick.getRawAxis(5);
    double shootDP = shootStick.getRawAxis(6);
-            
+   
+   boolean FlagA = false;
+   boolean FlagB = false;
+   boolean FlagX = false;
+   boolean FlagY = false;
+   
         //Shooter objShooter = new Shooter();
         //objShooter.shootInit();
         //objShooter.shooterPrint();
         //objShooter.Start();
-        if (shootA) { //increases speed
+        
+       if (shootA & !FlagA) { //increases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
             LCD.updateLCD();
-        
-         } else if (shootB) { //decreases speed
+            FlagA = true;
+       }
+       if (!shootA & FlagA) {
+           FlagA = false;
+       }
+       
+       if (shootB & !FlagB) { //decreases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing B");
             LCD.updateLCD();
+            FlagB = true;
         } 
+       
+       if (!shootB & FlagB) {
+           FlagB = true;
+       }
         
-        if (shootX){
+        if (shootX & stageOneScaler <= 100 & !FlagX){
            stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
-           team.LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
-           team.LCD.updateLCD();
-        } else if (shootY){
+           LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
+           LCD.updateLCD();
+           FlagX = true;
+        }   
+        
+        if (!shootX & FlagX) {
+            FlagX = true;
+        }
+        
+        if (shootY & !Flag){
             objShooter.percentageSubtract();
             LCD.println(Line.kUser2, 1, "Pressing Y");
             LCD.updateLCD();
