@@ -1,5 +1,7 @@
 package edu.wpi.first.wpilibj.templates;
 
+import java.lang.Math.*;
+
 public class Deadband{
     
     /*
@@ -14,13 +16,23 @@ public class Deadband{
         }
     }*/
     
-    public boolean joyStickDeadBand (double topNumber, double bottomNumber, double value){
+    public boolean zeroDeadBand (double topNumber, double bottomNumber, double value){
         boolean a = false;
-        if (bottomNumber > value && value > topNumber){
+        if (bottomNumber > value && value > topNumber){ /*Checks to see if the input value is between two numbers*/
          a = true;
          return a;
         } else {
             return a;
         }
     }
+    
+    public double fluxDeadBand (double value){
+        /*Clips off the decimals to the hundreth place*/
+        double a = value*100;
+        int b = (int)a;
+        double c = b/100;
+        return c;
+        
+    }
+    
 }
