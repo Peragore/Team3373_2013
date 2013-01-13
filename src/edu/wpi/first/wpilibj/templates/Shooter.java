@@ -60,8 +60,8 @@ public class Shooter {
         * *******************/
 public void speedIncrease(){ //increases speed by amount/second designated. Needs the per second part
        
-           RPMtarget(1);
-           RPMtarget(team.stageOneScaler);
+           team.StageTwoTalon.set(RPMtarget(1));
+           team.StageOneTalon.set(RPMtarget(team.stageOneScaler));
            team.LCD.println(Line.kUser2, 1, "Adding " + team.target + "RPM");
            team.LCD.updateLCD();
  }
@@ -70,7 +70,7 @@ public void speedIncrease(){ //increases speed by amount/second designated. Need
            //This code is used to subtrack the current speed of Stage 2
            team.StageTwoTalon.set(team.target);
            team.StageOneTalon.set(team.target *.5);       
-           team.LCD.println(Line.kUser2, 1, "Removing " + team.target + "RPM.");
+           team.LCD.println(Line.kUser2, 1, "Removing " + team.RPMModifier + "RPM.");
            team.LCD.updateLCD();
            if (team.StageTwoTalon.get() <= 0){
                team.StageTwoTalon.set(team.off);
