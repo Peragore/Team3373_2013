@@ -73,7 +73,7 @@ public class Team3373 extends SimpleRobot{
    double ShooterSpeedAccel = 250;
    double stageOneScaler = .5; //What stage one is multiplied by in order to make it a pecentage of stage 2
    double PWMMax = 1; //maximum voltage sent to motor
-   double MaxScaler = PWMMax/10000;
+   double MaxScaler = PWMMax/5300;
    double ShooterSpeedScale = MaxScaler * ShooterSpeedMax; //Scaler for voltage to RPM. Highly experimental!!
    double currentRPMT2 = StageTwoTalon.get()*ShooterSpeedScale;
    double currentRPMT1 = currentRPMT2*stageOneScaler;
@@ -97,7 +97,7 @@ public class Team3373 extends SimpleRobot{
      */
     public void operatorControl() {
         robotTimer.start();
-        while (isOperatorControl() ){
+        while (isOperatorControl() & isEnabled()){
            /************************
     * XBOX Shooter Buttons *
     * *********************/
@@ -129,9 +129,9 @@ public class Team3373 extends SimpleRobot{
    boolean flagY = false;
    
         //Shooter objShooter = new Shooter();
-        //objShooter.shootInit();
-        //objShooter.shooterPrint();
-        //objShooter.Start();
+        objShooter.shootInit();
+        objShooter.shooterPrint();
+        objShooter.Start();
         
        if (shootA & !flagA) { //increases speed
             objShooter.speedChange();
@@ -174,9 +174,7 @@ public class Team3373 extends SimpleRobot{
         
         String currentTime = Double.toString(robotTimer.get());
         LCD.println(Line.kUser6, 1, currentTime);
-        
-        LCD.println(Line.kUser2, 1, "Not pressing");
-        LCD.updateLCD();
+
     }
     }
     
