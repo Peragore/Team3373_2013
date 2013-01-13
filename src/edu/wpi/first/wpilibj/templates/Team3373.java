@@ -97,26 +97,28 @@ public class Team3373 extends SimpleRobot{
     public void operatorControl() {
         while (isOperatorControl() ){
         //Shooter objShooter = new Shooter();
-        objShooter.shootInit();
-        objShooter.shooterPrint();
-        objShooter.Start();
-        if (shootA) { //increases speed
+        //objShooter.shootInit();
+        //objShooter.shooterPrint();
+        //objShooter.Start();
+        if (shootStick.getRawButton(1)) { //increases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
             LCD.updateLCD();
-        } else if (shootB) { //decreases speed
+            System.out.println("Pressing A");
+        
+         } else if (shootStick.getRawButton(2)) { //decreases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing B");
             LCD.updateLCD();
-        } else if (shootX){
+        } else if (shootStick.getRawButton(3)){
             objShooter.percentageAdd();
             LCD.println(Line.kUser2, 1, "Pressing X");
             LCD.updateLCD();
-        } else if (shootY){
+        } else if (shootStick.getRawButton(4)){
             objShooter.percentageSubtract();
             LCD.println(Line.kUser2, 1, "Pressing Y");
             LCD.updateLCD();
-        }
+        } 
         LCD.println(Line.kUser2, 1, "Not pressing");
         LCD.updateLCD();
     }
