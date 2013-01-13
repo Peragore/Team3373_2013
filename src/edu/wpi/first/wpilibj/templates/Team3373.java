@@ -121,50 +121,50 @@ public class Team3373 extends SimpleRobot{
    double shootRY = shootStick.getRawAxis(5);
    double shootDP = shootStick.getRawAxis(6);
    
-   boolean FlagA = false;
-   boolean FlagB = false;
-   boolean FlagX = false;
-   boolean FlagY = false;
+   boolean flagA = false;
+   boolean flagB = false;
+   boolean flagX = false;
+   boolean flagY = false;
    
         //Shooter objShooter = new Shooter();
         //objShooter.shootInit();
         //objShooter.shooterPrint();
         //objShooter.Start();
         
-       if (shootA & !FlagA) { //increases speed
+       if (shootA & !flagA) { //increases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
             LCD.updateLCD();
-            FlagA = true;
+            flagA = true;
        }
-       if (!shootA & FlagA) {
-           FlagA = false;
+       if (!shootA & flagA) {
+           flagA = false;
        }
        
-       if (shootB & !FlagB) { //decreases speed
+       if (shootB & !flagB) { //decreases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing B");
             LCD.updateLCD();
-            FlagB = true;
+            flagB = true;
         } 
        
-       if (!shootB & FlagB) {
-           FlagB = true;
+       if (!shootB & flagB) {
+           flagB = true;
        }
         
-        if (shootX & stageOneScaler <= 100 & !FlagX){
+        if (shootX & stageOneScaler <= 100 & !flagX){
            stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
            LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
            LCD.updateLCD();
-           FlagX = true;
+           flagX = true;
         }   
         
-        if (!shootX & FlagX) {
-            FlagX = true;
+        if (!shootX & flagX) {
+            flagX = true;
         }
         
-        if (shootY & !Flag){
+        if (shootY & !flag){
             objShooter.percentageSubtract();
             LCD.println(Line.kUser2, 1, "Pressing Y");
             LCD.updateLCD();
