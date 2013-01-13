@@ -97,9 +97,9 @@ public class Team3373 extends SimpleRobot{
     public void operatorControl() {
         while (isOperatorControl() ){
         //Shooter objShooter = new Shooter();
-        //objShooter.shootInit();
+        objShooter.shootInit();
         objShooter.shooterPrint();
-        //objShooter.Start();
+        objShooter.Start();
         if (shootA) { //increases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
