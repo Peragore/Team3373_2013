@@ -18,7 +18,7 @@ public class Deadband{
     
     public boolean zeroDeadBand (double topNumber, double bottomNumber, double value){
         boolean a = false;
-        if (bottomNumber > value && value > topNumber){
+        if (bottomNumber > value && value > topNumber){ /*Checks to see if the input value is between two numbers*/
          a = true;
          return a;
         } else {
@@ -27,9 +27,11 @@ public class Deadband{
     }
     
     public double fluxDeadBand (double value){
-        
-        double a = Math.round(value*100.0)/100.0;
-        return a;
+        /*Clips off the decimals to the hundreth place*/
+        double a = value*100;
+        int b = (int)a;
+        double c = b/100;
+        return c;
         
     }
     
