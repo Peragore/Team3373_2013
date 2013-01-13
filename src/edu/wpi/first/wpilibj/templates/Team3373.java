@@ -10,6 +10,7 @@ package edu.wpi.first.wpilibj.templates;
 
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.SimpleRobot;
@@ -80,7 +81,7 @@ public class Team3373 extends SimpleRobot{
    double idle = 1 * ShooterSpeedScale;
    double off = 0;
    double change;
-    public Team3373(){
+   public Team3373(){
         
     }
     
@@ -96,24 +97,23 @@ public class Team3373 extends SimpleRobot{
     public void operatorControl() {
         while (isOperatorControl() ){
         //Shooter objShooter = new Shooter();
-        objShooter.shootInit();
+        //objShooter.shootInit();
         objShooter.shooterPrint();
-        LCD.updateLCD();
+        //objShooter.Start();
         if (shootA) { //increases speed
             objShooter.speedIncrease();
-            System.out.println("Pressing A");
+            LCD.println(Line.kUser2, 1, "Pressing A");
         } else if (shootB) { //decreases speed
             objShooter.speedDecrease();
-            System.out.println("Pressing B");
+            LCD.println(Line.kUser2, 1, "Pressing B");
         } else if (shootX){
             objShooter.percentageAdd();
-            System.out.println("Pressing X");
+            LCD.println(Line.kUser2, 1, "Pressing X");
         } else if (shootY){
             objShooter.percentageSubtract();
-            System.out.println("Pressing Y");
+            LCD.println(Line.kUser2, 1, "Pressing Y");
         }
-        
-        LCD.println(DriverStationLCD.Line.kUser1, 1, "Test");
+        LCD.println(Line.kUser2, 1, "Not pressing");
     }
     }
     

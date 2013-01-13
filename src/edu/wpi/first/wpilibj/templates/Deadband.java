@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.wpi.first.wpilibj.templates;
 
-/**
- *
- * @author Philip2
- */
 public class Deadband{
     
     /*
@@ -22,11 +14,13 @@ public class Deadband{
         }
     }*/
     
-    public boolean Range (double topNumber, double bottomNumber, double value){
+    public boolean joyStickDeadBand (double topNumber, double bottomNumber, double value){
         boolean a = false;
         if (bottomNumber > value && value > topNumber){
          a = true;
          return a;
-        } else return a;
+        } else {
+            return a;
+        }
     }
 }
