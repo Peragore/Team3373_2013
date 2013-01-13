@@ -68,7 +68,7 @@ public class Team3373 extends SimpleRobot{
    
    double ShooterSpeedStage1 = StageOneTalon.get();
    double ShooterSpeedStage2 = StageTwoTalon.get();
-   double ShooterSpeedMax = 5300;
+   double ShooterSpeedMax = 5300.0;
    double ShooterSpeedAccel = 250;
    double stageOneScaler = .5; //What stage one is multiplied by in order to make it a pecentage of stage 2
    double PWMMax = 1; //maximum voltage sent to motor
@@ -97,23 +97,28 @@ public class Team3373 extends SimpleRobot{
     public void operatorControl() {
         while (isOperatorControl() ){
         //Shooter objShooter = new Shooter();
-        //objShooter.shootInit();
+        objShooter.shootInit();
         objShooter.shooterPrint();
-        //objShooter.Start();
+        objShooter.Start();
         if (shootA) { //increases speed
-            objShooter.speedIncrease();
+            objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
+            LCD.updateLCD();
         } else if (shootB) { //decreases speed
-            objShooter.speedDecrease();
+            objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing B");
+            LCD.updateLCD();
         } else if (shootX){
             objShooter.percentageAdd();
             LCD.println(Line.kUser2, 1, "Pressing X");
+            LCD.updateLCD();
         } else if (shootY){
             objShooter.percentageSubtract();
             LCD.println(Line.kUser2, 1, "Pressing Y");
+            LCD.updateLCD();
         }
         LCD.println(Line.kUser2, 1, "Not pressing");
+        LCD.updateLCD();
     }
     }
     
