@@ -96,25 +96,52 @@ public class Team3373 extends SimpleRobot{
      */
     public void operatorControl() {
         while (isOperatorControl() ){
+           /************************
+    * XBOX Shooter Buttons *
+    * *********************/
+   
+   boolean shootA = shootStick.getRawButton(1);
+   boolean shootB = shootStick.getRawButton(2);
+   boolean shootX = shootStick.getRawButton(3);
+   boolean shootY = shootStick.getRawButton(4);
+   boolean shootRB = shootStick.getRawButton(5);
+   boolean shootLB = shootStick.getRawButton(6);
+   boolean shootBack = shootStick.getRawButton(7); 
+   boolean shootStart = shootStick.getRawButton(8);
+   boolean test;
+   
+   /************************
+    * XBOX Shooter Axes *
+    * *********************/
+   
+   double shootLX = shootStick.getRawAxis(1); 
+   double shootLY = shootStick.getRawAxis(2);
+   double shootTriggers = shootStick.getRawAxis(3);
+   double shootRX = shootStick.getRawAxis(4);
+   double shootRY = shootStick.getRawAxis(5);
+   double shootDP = shootStick.getRawAxis(6);
+            
         //Shooter objShooter = new Shooter();
         //objShooter.shootInit();
         //objShooter.shooterPrint();
         //objShooter.Start();
-        if (shootStick.getRawButton(1)) { //increases speed
+        if (shootA) { //increases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
             LCD.updateLCD();
-            System.out.println("Pressing A");
         
-         } else if (shootStick.getRawButton(2)) { //decreases speed
+         } else if (shootB) { //decreases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing B");
             LCD.updateLCD();
-        } else if (shootStick.getRawButton(3)){
-            objShooter.percentageAdd();
-            LCD.println(Line.kUser2, 1, "Pressing X");
-            LCD.updateLCD();
-        } else if (shootStick.getRawButton(4)){
+        } 
+        
+        if (shootX){
+           stageOneScaler += 0.05;
+           //changes stage1 percentage of stage2 adds 5%
+           team.LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
+           team.LCD.updateLCD();
+        } else if (shootY){
             objShooter.percentageSubtract();
             LCD.println(Line.kUser2, 1, "Pressing Y");
             LCD.updateLCD();
