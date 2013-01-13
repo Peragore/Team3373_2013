@@ -32,7 +32,7 @@ public class Team3373 extends SimpleRobot{
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
    Talon StageOneTalon = new Talon(StageOneMotorPWM); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(StageTwoMotorPWM); //Creates instance of StageTwo PWM 
-   DriverStationLCD LCD;
+   DriverStationLCD LCD = DriverStationLCD.getInstance();
    SmartDashboard smartDashboard;
    Joystick shootStick = new Joystick(2);
    Shooter objShooter = new Shooter(this);
