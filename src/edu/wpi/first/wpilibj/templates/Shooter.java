@@ -92,7 +92,7 @@ public void speedChange(){ //increases speed by amount/second designated. Needs 
 public void percentageAdd() { //adds 5% to the scaler of stage one       
            team.stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
-           team.LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
+           //team.LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
            team.LCD.updateLCD();
            //System.out.println("Adding percentage");
        } 
@@ -100,7 +100,7 @@ public void percentageAdd() { //adds 5% to the scaler of stage one
 public void percentageSubtract() {//reduces percentage, subtracts 5%. i.e. 45% - 40%
            team.stageOneScaler -= 0.05;
            //changes stage1 percentage of stage2 subtracts 5%
-           team.LCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
+           //team.LCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
            team.LCD.updateLCD();
            System.out.println("Subtracting percentage");
        }
