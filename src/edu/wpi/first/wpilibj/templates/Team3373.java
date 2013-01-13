@@ -96,6 +96,7 @@ public class Team3373 extends SimpleRobot{
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
+        robotTimer.start();
         while (isOperatorControl() ){
            /************************
     * XBOX Shooter Buttons *
@@ -173,8 +174,6 @@ public class Team3373 extends SimpleRobot{
         
         String currentTime = Double.toString(robotTimer.get());
         LCD.println(Line.kUser6, 1, currentTime);
-        LCD.println(Line.kUser6, 1, "Hi");
-        LCD.println(Line.kUser6, 1, "Bye");
         
         LCD.println(Line.kUser2, 1, "Not pressing");
         LCD.updateLCD();
