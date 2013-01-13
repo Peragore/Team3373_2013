@@ -34,7 +34,7 @@ public class Shooter {
    }
     
     public void shootInit() { //to be called at beginning of teleoperated
-       team.LCD = DriverStationLCD.getInstance();
+        DriverStationLCD.getInstance();
        team.LCD.updateLCD();
        team.target = team.ShooterSpeedMax;
    }
@@ -58,15 +58,22 @@ public class Shooter {
        /*********************
         * Increase/Decrease *
         * *******************/
-public void speedIncrease(){ //increases speed by amount/second designated. Needs the per second part
+public void speedChange(){ //increases speed by amount/second designated. Needs the per second part
        
-           team.StageTwoTalon.set(RPMtarget(1));
-           team.StageOneTalon.set(RPMtarget(team.stageOneScaler));
-           team.LCD.println(Line.kUser2, 1, "Adding " + team.target + "RPM");
+           RPMtarget(1);
+           RPMtarget(team.stageOneScaler);
+           team.StageTwoTalon.set(team.target);
+           team.StageOneTalon.set(team.target * team.stageOneScaler);
+           
+           if (team.target > 0) {
+               team.LCD.println(Line.kUser2, 1, "Adding " + team.target + "RPM");
+           } else if (team.target < 0) {
+               team.LCD.println(Line.kUser2, 1, "Subtracting " + team.target + "RPM");               
+           }
            team.LCD.updateLCD();
  }
        
- public void speedDecrease() { //decrease speed by set number. Works like speedIncrease() in reverse
+ /* public void speedDecrease() { //decrease speed by set number. Works like speedIncrease() in reverse
            //This code is used to subtrack the current speed of Stage 2
            team.StageTwoTalon.set(team.target);
            team.StageOneTalon.set(team.target *.5);       
@@ -77,7 +84,7 @@ public void speedIncrease(){ //increases speed by amount/second designated. Need
                //if the speed is less than 0, turn off
            }
        }
-
+*/
 public void percentageAdd() { //adds 5% to the scaler of stage one       
            team.stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
