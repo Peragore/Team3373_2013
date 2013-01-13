@@ -36,6 +36,7 @@ public class Team3373 extends SimpleRobot{
    SmartDashboard smartDashboard;
    Joystick shootStick = new Joystick(2);
    Shooter objShooter = new Shooter(this);
+   Timer robotTimer = new Timer();
    
    /************************
     * XBOX Shooter Buttons *
@@ -164,11 +165,15 @@ public class Team3373 extends SimpleRobot{
             flagX = true;
         }
         
-        if (shootY & !flag){
+        if (shootY & !flagY){
             objShooter.percentageSubtract();
             LCD.println(Line.kUser2, 1, "Pressing Y");
             LCD.updateLCD();
         } 
+        
+        String currentTime = Double.toString(robotTimer.get());
+        LCD.println(Line.kUser6, 1, currentTime);
+        
         LCD.println(Line.kUser2, 1, "Not pressing");
         LCD.updateLCD();
     }
