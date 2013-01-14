@@ -59,12 +59,14 @@ public class Shooter {
         * Increase/Decrease *
         * *******************/
 public void speedChange(){ //increases speed by amount/second designated. Needs the per second part
-       
+           double lastTime;
+           double nowTime;
            RPMtarget(1);
            RPMtarget(team.stageOneScaler);
            team.StageTwoTalon.set(team.target);
            team.StageOneTalon.set(team.target * team.stageOneScaler);
-           
+           nowTime = team.robotTimer.get();
+           double elapsedTime = nowTime - lastTime;
            if (team.target > 0) {
                team.LCD.println(Line.kUser2, 1, "Adding " + team.target + "RPM");
                team.LCD.updateLCD();
@@ -74,6 +76,7 @@ public void speedChange(){ //increases speed by amount/second designated. Needs 
                team.LCD.updateLCD();
                System.out.println("Subtracting RPM");
            }
+           lastTime= team.robotTimer.get();
            team.LCD.updateLCD();
  }
        
@@ -92,7 +95,7 @@ public void speedChange(){ //increases speed by amount/second designated. Needs 
 public void percentageAdd() { //adds 5% to the scaler of stage one       
            team.stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
-           //team.LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
+           team.LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
            team.LCD.updateLCD();
            //System.out.println("Adding percentage");
        } 
@@ -100,7 +103,7 @@ public void percentageAdd() { //adds 5% to the scaler of stage one
 public void percentageSubtract() {//reduces percentage, subtracts 5%. i.e. 45% - 40%
            team.stageOneScaler -= 0.05;
            //changes stage1 percentage of stage2 subtracts 5%
-           //team.LCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
+           team.LCD.println(Line.kUser6, 1, "Subtracting 5% to Stage One Percentile");
            team.LCD.updateLCD();
            System.out.println("Subtracting percentage");
        }
