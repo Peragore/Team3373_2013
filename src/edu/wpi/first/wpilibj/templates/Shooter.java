@@ -59,7 +59,7 @@ public class Shooter {
         * Increase/Decrease *
         * *******************/
 public void speedChange(){ //increases speed by amount/second designated. Needs the per second part
-           double lastTime;
+           double lastTime = 0.0;
            double nowTime;
            RPMtarget(1);
            RPMtarget(team.stageOneScaler);
@@ -76,7 +76,7 @@ public void speedChange(){ //increases speed by amount/second designated. Needs 
                team.LCD.updateLCD();
                System.out.println("Subtracting RPM");
            }
-           lastTime= team.robotTimer.get();
+           lastTime = team.robotTimer.get();
            team.LCD.updateLCD();
  }
        
