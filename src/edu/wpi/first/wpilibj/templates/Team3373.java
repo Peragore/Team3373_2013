@@ -98,6 +98,7 @@ public class Team3373 extends SimpleRobot{
    boolean flagY;
    boolean flagStart;
    boolean flagBack;
+   boolean flagBack2;
    public Team3373(){
         
     }
@@ -123,6 +124,7 @@ public class Team3373 extends SimpleRobot{
    flagY = true;
    flagStart = true;
    flagBack = true;
+   flagBack2 = false;
    
    while (isOperatorControl() & isEnabled()){
            /************************
@@ -193,7 +195,7 @@ public class Team3373 extends SimpleRobot{
                 ShooterSpeedStage2 = 0;
             }            
             flagB = false;
-        } else if (shootX && flagX){//increases percentage between Stage1 and Stage2
+        } else if (shootX && flagX && !flagBack){//increases percentage between Stage1 and Stage2
             percentageScaler += 0.05;
             if (percentageScaler >= 1) {
                 percentageScaler = 1;
@@ -211,17 +213,23 @@ public class Team3373 extends SimpleRobot{
             StageOneTalon.set(ShooterSpeedStage1);
             StageTwoTalon.set(ShooterSpeedStage2);
             flagY = false;
-        } else if (shootBack && flagBack){//turns off
+        } else if (flagBack2 && flagBack){//turns off
             backTime = robotTimer.get();
             if (robotTimer.get() >= backTime + .05){                
+                ShooterSpeedStage2 -= 0.1;
+                ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
             }
-            flagBack = false;
+            if (ShooterSpeedStage2 == 0){
+                flagBack = false;
+            } 
             ShooterSpeedStage2 = .1;
             ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
             
         }
         
-        if (!shootA && !flagA) { //toggles
+        if (shootBack && flagBack){
+            flagBack2 = true;
+        } else if (!shootA && !flagA) { //toggles
             flagA = true;
         } else if (!shootB && !flagB){
             flagB = true;
@@ -231,8 +239,9 @@ public class Team3373 extends SimpleRobot{
             flagY = true;
         } else if (!shootStart && !flagStart){
             flagStart = true;
-        }else if (!shootBack && !flagBack){
+        }else if (!shootBack && !flagBack && ShooterSpeedStage2 == 0){
             flagBack = true;
+            flagBack2 = false;
         }
         
         //try {Thread.sleep(1000);} catch(Exception e){}
