@@ -37,21 +37,25 @@ public class Shooter {
     public void shootInit() { //to be called at beginning of teleoperated
        DriverStationLCD.getInstance();
        team.target = team.ShooterSpeedMax;
+       team.StageOneTalon.set(0);
+       team.StageTwoTalon.set(0);
    }
        
        /******************
         * Initialization *
         * ****************/
  public void Start(){ //Initialization code, used to turn motors on and off
-       if (team.shootStart){
-           team.StageTwoTalon.set(team.idle);
-           team.StageOneTalon.set(team.idle * team.stageOneScaler);
-           team.LCD.println(Line.kUser1, 7, "On");
+     team.LCD.println(Line.kUser2, 1, "Inside");  
+     System.out.println("Inside");
+     if (team.shootStart){
+           team.StageTwoTalon.set(1);
+           team.StageOneTalon.set(1 * .5);
+           team.LCD.println(Line.kUser1, 5, "On");
            team.LCD.updateLCD();
        } else if (team.shootBack){
            team.StageTwoTalon.set(team.off);
-           team.StageOneTalon.set(team.off * team.stageOneScaler);
-           team.LCD.println(Line.kUser1, 7, "Off");
+           team.StageOneTalon.set(team.off * .5);
+           team.LCD.println(Line.kUser1, 5, "Off");
            team.LCD.updateLCD();
        }
  }
@@ -120,7 +124,7 @@ public void shooterPrint() { // prints different variables. NYI
            team.LCD.println(Line.kUser5, 1, "At Target");
            
        }
-       team.LCD.println(Line.kUser1, 1, "Motors ");
+       team.LCD.println(Line.kUser1, 1, "Mot ");
        team.LCD.updateLCD();
        team.LCD.println(Line.kUser3, 1, "Stage One Speed Percentile: " + (team.currentRPMT1/team.currentRPMT2)*100 + "%");
        team.LCD.updateLCD();

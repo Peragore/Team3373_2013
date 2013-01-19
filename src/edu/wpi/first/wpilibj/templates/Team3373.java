@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.templates.*;
-import edu.wpi.first.wpilibj.templates.Shooter;
+//import edu.wpi.first.wpilibj.templates.Shooter;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the SimpleRobot
@@ -30,12 +30,13 @@ public class Team3373 extends SimpleRobot{
     
    int StageOneMotorPWM = 1; //Declares channel of StageOne PWM
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
-   Talon StageOneTalon = new Talon(StageOneMotorPWM); //Creates instance of StageOne PWM
-   Talon StageTwoTalon = new Talon(StageTwoMotorPWM); //Creates instance of StageTwo PWM 
+   Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
+   Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
    DriverStationLCD LCD = DriverStationLCD.getInstance();
    SmartDashboard smartDashboard;
    Joystick shootStick = new Joystick(2);
    Shooter objShooter = new Shooter(this);
+   Deadband objDeadband = new Deadband();
    Timer robotTimer = new Timer();
    
    /************************
@@ -61,7 +62,7 @@ public class Team3373 extends SimpleRobot{
    double shootTriggers = shootStick.getRawAxis(3);
    double shootRX = shootStick.getRawAxis(4);
    double shootRY = shootStick.getRawAxis(5);
-   double shootDP = shootStick.getRawAxis(6);
+   double shootDP = shootStick.getRawAxis(6); 
    
   /*********************************
    * Math/Shooter Action Variables *
@@ -73,7 +74,7 @@ public class Team3373 extends SimpleRobot{
    double ShooterSpeedAccel = 250;
    double stageOneScaler = .5; //What stage one is multiplied by in order to make it a pecentage of stage 2
    double PWMMax = 1; //maximum voltage sent to motor
-   double MaxScaler = PWMMax/10000;
+   double MaxScaler = PWMMax/5300;
    double ShooterSpeedScale = MaxScaler * ShooterSpeedMax; //Scaler for voltage to RPM. Highly experimental!!
    double currentRPMT2 = StageTwoTalon.get()*ShooterSpeedScale;
    double currentRPMT1 = currentRPMT2*stageOneScaler;
@@ -97,7 +98,11 @@ public class Team3373 extends SimpleRobot{
      */
     public void operatorControl() {
         robotTimer.start();
-        while (isOperatorControl() ){
+        while (isOperatorControl() & isDisabled()){
+           objShooter.shootInit(); 
+        }
+
+        while (isOperatorControl() & isEnabled()){
            /************************
     * XBOX Shooter Buttons *
     * *********************/
@@ -128,11 +133,14 @@ public class Team3373 extends SimpleRobot{
    boolean flagX = false;
    boolean flagY = false;
    
+   
         //Shooter objShooter = new Shooter();
-        //objShooter.shootInit();
-        //objShooter.shooterPrint();
-        //objShooter.Start();
         
+        objShooter.shooterPrint();
+        objShooter.Start();
+        LCD.println(Line.kUser2, 1, "Not Inside");
+        System.out.println("Not Inside");
+
        if (shootA & !flagA) { //increases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
@@ -174,9 +182,7 @@ public class Team3373 extends SimpleRobot{
         
         String currentTime = Double.toString(robotTimer.get());
         LCD.println(Line.kUser6, 1, currentTime);
-        
-        LCD.println(Line.kUser2, 1, "Not pressing");
-        LCD.updateLCD();
+
     }
     }
     
