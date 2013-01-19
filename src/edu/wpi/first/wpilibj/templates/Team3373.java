@@ -10,8 +10,8 @@ package edu.wpi.first.wpilibj.templates;
 
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 //import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.SimpleRobot;
 //import edu.wpi.first.wpilibj.templates.Shooter;
@@ -84,6 +84,7 @@ public class Team3373 extends SimpleRobot{
    double RPMModifier = 250;
    double idle = 1 * ShooterSpeedScale;
    double off = 0;
+   double Scaler = 5936;
    double change;
    
    boolean flagA;
@@ -110,8 +111,15 @@ public class Team3373 extends SimpleRobot{
         while (isOperatorControl() & isDisabled()){
            objShooter.shootInit(); 
         }
-
-        while (isOperatorControl() & isEnabled()){
+   
+   flagA = true;
+   flagB = true;
+   flagX = true;
+   flagY = true;
+   flagStart = true;
+   flagBack = true;
+   
+   while (isOperatorControl() & isEnabled()){
            /************************
     * XBOX Shooter Buttons *
     * *********************/
@@ -137,22 +145,21 @@ public class Team3373 extends SimpleRobot{
    shootRY = shootStick.getRawAxis(5);
    shootDP = shootStick.getRawAxis(6);
    
-   flagA = true;
-   flagB = true;
-   flagX = true;
-   flagY = true;
-   flagStart = true;
-   flagBack = true;
+
    
         //Shooter objShooter = new Shooter();
         
         //objShooter.shooterPrint();
         //objShooter.Start();
-        if (shootStart ) {
+        if (shootStart && flagStart) {
             StageOneTalon.set(ShooterSpeedStage1);
             StageTwoTalon.set(ShooterSpeedStage2);
+            flagStart = false;
         }   else if (shootA && flagA){//increases stage 2
             ShooterSpeedStage2 += 0.1;
+            if (ShooterSpeedStage2 >= 1) {
+                ShooterSpeedStage2 = 1;
+            }
             ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
             StageOneTalon.set(ShooterSpeedStage1);
             StageTwoTalon.set(ShooterSpeedStage2);
@@ -160,22 +167,38 @@ public class Team3373 extends SimpleRobot{
 
         }   else if (shootB && flagB){//decrease stage 2
             ShooterSpeedStage2 -= 0.1;
+            if (ShooterSpeedStage2 <= 0) {
+                ShooterSpeedStage2 = 0;
+            }
             ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
             StageOneTalon.set(ShooterSpeedStage1);
             StageTwoTalon.set(ShooterSpeedStage2);
+            flagB = false;
         } else if (shootX && flagX){//increases percentage between Stage1 and Stage2
             percentageScaler += 0.05;
+            if (percentageScaler >= 1) {
+                percentageScaler = 1;
+            }
             ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
             StageOneTalon.set(ShooterSpeedStage1);
             StageTwoTalon.set(ShooterSpeedStage2);
+            flagX = false;
         } else if (shootY && flagY){//decreases percentage between Stage1 and Stage2
             percentageScaler -= 0.05;
+            if (percentageScaler <= 0 ) {
+                percentageScaler = 0;
+            } 
             ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
             StageOneTalon.set(ShooterSpeedStage1);
             StageTwoTalon.set(ShooterSpeedStage2);
-        } else if (shootBack){//turns off
+            flagY = false;
+        } else if (shootBack && flagBack){//turns off
             StageOneTalon.set(0);
             StageTwoTalon.set(0);
+            flagBack = false;
+            ShooterSpeedStage2 = .1;
+            ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
+            
         }
         
         if (!shootA && !flagA) { //toggles
@@ -183,9 +206,9 @@ public class Team3373 extends SimpleRobot{
         } else if (!shootB && !flagB){
             flagB = true;
         }else if (!shootX && !flagX){
-            flagB = true;
+            flagX = true;
         }else if (!shootY && !flagY){
-            flagB = true;
+            flagY = true;
         } else if (!shootStart && !flagStart){
             flagStart = true;
         }else if (!shootBack && !flagBack){
@@ -193,14 +216,16 @@ public class Team3373 extends SimpleRobot{
         }
         
         //try {Thread.sleep(1000);} catch(Exception e){}
-        String percentage = Double.toString(percentageScaler);
+        //String percentage = Double.toString();
         double speedOne = StageOneTalon.get();
         String speed1 = Double.toString(speedOne);
         double speedTwo = StageTwoTalon.get();
         String speed2 = Double.toString(speedTwo);
-        LCD.println(Line.kUser3, 1,"%:" + percentage);
+        LCD.println(Line.kUser3, 1, ((StageTwoTalon.get()/StageOneTalon.get()) *100) + "%");
         LCD.println(Line.kUser4, 1,"S1:" + speed1);
         LCD.println(Line.kUser5, 1,"S2:" + speed2);
+        LCD.println(Line.kUser1, 1, "RPM1: " + (speedOne * Scaler));
+        LCD.println(Line.kUser2, 1, "RPM2: " + (speedTwo * Scaler));
         LCD.updateLCD();
        /*if (shootA & !flagA) { //increases speed
             objShooter.speedChange();
