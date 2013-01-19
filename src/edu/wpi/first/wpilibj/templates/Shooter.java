@@ -46,6 +46,7 @@ public class Shooter {
         * ****************/
  public void Start(){ //Initialization code, used to turn motors on and off
      team.LCD.println(Line.kUser2, 1, "Inside");  
+     System.out.println("Inside");
      if (team.shootStart){
            team.StageTwoTalon.set(1);
            team.StageOneTalon.set(1 * .5);

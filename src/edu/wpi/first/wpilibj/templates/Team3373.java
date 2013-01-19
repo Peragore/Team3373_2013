@@ -139,7 +139,8 @@ public class Team3373 extends SimpleRobot{
         objShooter.shooterPrint();
         objShooter.Start();
         LCD.println(Line.kUser2, 1, "Not Inside");
-        if (true) return;
+        System.out.println("Not Inside");
+
        if (shootA & !flagA) { //increases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
