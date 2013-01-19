@@ -67,8 +67,11 @@ public class Team3373 extends SimpleRobot{
    * Math/Shooter Action Variables *
    *********************************/
    
-   double ShooterSpeedStage1 = StageOneTalon.get();
-   double ShooterSpeedStage2 = StageTwoTalon.get();
+   
+   double ShooterSpeedStage2 = 0.1;//was StageTwoTalon.get()
+   double percentageScaler = 0.5;
+   double ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;//was StageOneTalon.get()
+   
    double ShooterSpeedMax = 5300.0;
    double ShooterSpeedAccel = 250;
    double stageOneScaler = .5; //What stage one is multiplied by in order to make it a pecentage of stage 2
@@ -87,6 +90,8 @@ public class Team3373 extends SimpleRobot{
    boolean flagB;
    boolean flagX;
    boolean flagY;
+   boolean flagStart;
+   boolean flagBack;
    public Team3373(){
         
     }
@@ -132,18 +137,72 @@ public class Team3373 extends SimpleRobot{
    shootRY = shootStick.getRawAxis(5);
    shootDP = shootStick.getRawAxis(6);
    
-   flagA = false;
-   flagB = false;
-   flagX = false;
-   flagY = false;
-   
+   flagA = true;
+   flagB = true;
+   flagX = true;
+   flagY = true;
+   flagStart = true;
+   flagBack = true;
    
         //Shooter objShooter = new Shooter();
         
-        objShooter.shooterPrint();
-        objShooter.Start();
+        //objShooter.shooterPrint();
+        //objShooter.Start();
+        if (shootStart ) {
+            StageOneTalon.set(ShooterSpeedStage1);
+            StageTwoTalon.set(ShooterSpeedStage2);
+        }   else if (shootA && flagA){//increases stage 2
+            ShooterSpeedStage2 += 0.1;
+            ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
+            StageOneTalon.set(ShooterSpeedStage1);
+            StageTwoTalon.set(ShooterSpeedStage2);
+            flagA = false;
 
-       if (shootA & !flagA) { //increases speed
+        }   else if (shootB && flagB){//decrease stage 2
+            ShooterSpeedStage2 -= 0.1;
+            ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
+            StageOneTalon.set(ShooterSpeedStage1);
+            StageTwoTalon.set(ShooterSpeedStage2);
+        } else if (shootX && flagX){//increases percentage between Stage1 and Stage2
+            percentageScaler += 0.05;
+            ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
+            StageOneTalon.set(ShooterSpeedStage1);
+            StageTwoTalon.set(ShooterSpeedStage2);
+        } else if (shootY && flagY){//decreases percentage between Stage1 and Stage2
+            percentageScaler -= 0.05;
+            ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
+            StageOneTalon.set(ShooterSpeedStage1);
+            StageTwoTalon.set(ShooterSpeedStage2);
+        } else if (shootBack){//turns off
+            StageOneTalon.set(0);
+            StageTwoTalon.set(0);
+        }
+        
+        if (!shootA && !flagA) { //toggles
+            flagA = true;
+        } else if (!shootB && !flagB){
+            flagB = true;
+        }else if (!shootX && !flagX){
+            flagB = true;
+        }else if (!shootY && !flagY){
+            flagB = true;
+        } else if (!shootStart && !flagStart){
+            flagStart = true;
+        }else if (!shootBack && !flagBack){
+            flagBack = true;
+        }
+        
+        //try {Thread.sleep(1000);} catch(Exception e){}
+        String percentage = Double.toString(percentageScaler);
+        double speedOne = StageOneTalon.get();
+        String speed1 = Double.toString(speedOne);
+        double speedTwo = StageTwoTalon.get();
+        String speed2 = Double.toString(speedTwo);
+        LCD.println(Line.kUser3, 1,"%:" + percentage);
+        LCD.println(Line.kUser4, 1,"S1:" + speed1);
+        LCD.println(Line.kUser5, 1,"S2:" + speed2);
+        LCD.updateLCD();
+       /*if (shootA & !flagA) { //increases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
             LCD.updateLCD();
@@ -180,7 +239,7 @@ public class Team3373 extends SimpleRobot{
             objShooter.percentageSubtract();
             LCD.println(Line.kUser2, 1, "Pressing Y");
             LCD.updateLCD();
-        } 
+        }*/ 
         
         String currentTime = Double.toString(robotTimer.get());
         LCD.println(Line.kUser6, 1, currentTime);
