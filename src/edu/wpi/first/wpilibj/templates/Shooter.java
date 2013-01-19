@@ -20,7 +20,7 @@ public class Shooter {
     * *************/
    Team3373 team;
    DriverStationLCD dsLCD;
-   
+   public double lastTime = 0.0;
     public Shooter(Team3373 t){
        team = t;
    }
@@ -63,7 +63,6 @@ public class Shooter {
         * Increase/Decrease *
         * *******************/
 public void speedChange(){ //increases speed by amount/second designated. Needs the per second part
-           double lastTime = 0.0;
            double nowTime;
            RPMtarget(1);
            RPMtarget(team.stageOneScaler);
@@ -71,12 +70,14 @@ public void speedChange(){ //increases speed by amount/second designated. Needs 
            team.StageOneTalon.set(team.target * team.stageOneScaler);
            nowTime = team.robotTimer.get();
            double elapsedTime = nowTime - lastTime;
+           String difference = Double.toString(elapsedTime);
+           team.LCD.println(Line.kUser2, 1, "difference");
            if (team.target > 0) {
-               team.LCD.println(Line.kUser2, 1, "Adding " + team.target + "RPM");
+               //team.LCD.println(Line.kUser2, 1, "Adding " + team.target + "RPM");
                team.LCD.updateLCD();
                System.out.println("Adding RPM");
            } else if (team.target < 0) {
-               team.LCD.println(Line.kUser2, 1, "Subtracting " + team.target + "RPM");               
+               //team.LCD.println(Line.kUser2, 1, "Subtracting " + team.target + "RPM");               
                team.LCD.updateLCD();
                System.out.println("Subtracting RPM");
            }
