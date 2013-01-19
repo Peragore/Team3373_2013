@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.SimpleRobot;
-import edu.wpi.first.wpilibj.templates.*;
 //import edu.wpi.first.wpilibj.templates.Shooter;
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -43,14 +42,14 @@ public class Team3373 extends SimpleRobot{
     * XBOX Shooter Buttons *
     * *********************/
    
-   boolean shootA = shootStick.getRawButton(1);
-   boolean shootB = shootStick.getRawButton(2);
-   boolean shootX = shootStick.getRawButton(3);
-   boolean shootY = shootStick.getRawButton(4);
-   boolean shootRB = shootStick.getRawButton(5);
-   boolean shootLB = shootStick.getRawButton(6);
-   boolean shootBack = shootStick.getRawButton(7); 
-   boolean shootStart = shootStick.getRawButton(8);
+   boolean shootA; 
+   boolean shootB;
+   boolean shootX;
+   boolean shootY;
+   boolean shootRB;
+   boolean shootLB;
+   boolean shootBack; 
+   boolean shootStart;
    boolean test;
    
    /************************
@@ -83,6 +82,11 @@ public class Team3373 extends SimpleRobot{
    double idle = 1 * ShooterSpeedScale;
    double off = 0;
    double change;
+   
+   boolean flagA;
+   boolean flagB;
+   boolean flagX;
+   boolean flagY;
    public Team3373(){
         
     }
@@ -107,39 +111,37 @@ public class Team3373 extends SimpleRobot{
     * XBOX Shooter Buttons *
     * *********************/
    
-   boolean shootA = shootStick.getRawButton(1);
-   boolean shootB = shootStick.getRawButton(2);
-   boolean shootX = shootStick.getRawButton(3);
-   boolean shootY = shootStick.getRawButton(4);
-   boolean shootRB = shootStick.getRawButton(5);
-   boolean shootLB = shootStick.getRawButton(6);
-   boolean shootBack = shootStick.getRawButton(7); 
-   boolean shootStart = shootStick.getRawButton(8);
-   boolean test;
+    shootA = shootStick.getRawButton(1);
+   shootB = shootStick.getRawButton(2);
+   shootX = shootStick.getRawButton(3);
+   shootY = shootStick.getRawButton(4);
+   shootRB = shootStick.getRawButton(5);
+   shootLB = shootStick.getRawButton(6);
+   shootBack = shootStick.getRawButton(7); 
+   shootStart = shootStick.getRawButton(8);
+   
    
    /************************
     * XBOX Shooter Axes *
     * *********************/
    
-   double shootLX = shootStick.getRawAxis(1); 
-   double shootLY = shootStick.getRawAxis(2);
-   double shootTriggers = shootStick.getRawAxis(3);
-   double shootRX = shootStick.getRawAxis(4);
-   double shootRY = shootStick.getRawAxis(5);
-   double shootDP = shootStick.getRawAxis(6);
+   shootLX = shootStick.getRawAxis(1); 
+   shootLY = shootStick.getRawAxis(2);
+   shootTriggers = shootStick.getRawAxis(3);
+   shootRX = shootStick.getRawAxis(4);
+   shootRY = shootStick.getRawAxis(5);
+   shootDP = shootStick.getRawAxis(6);
    
-   boolean flagA = false;
-   boolean flagB = false;
-   boolean flagX = false;
-   boolean flagY = false;
+   flagA = false;
+   flagB = false;
+   flagX = false;
+   flagY = false;
    
    
         //Shooter objShooter = new Shooter();
         
         objShooter.shooterPrint();
         objShooter.Start();
-        LCD.println(Line.kUser2, 1, "Not Inside");
-        System.out.println("Not Inside");
 
        if (shootA & !flagA) { //increases speed
             objShooter.speedChange();
@@ -147,7 +149,7 @@ public class Team3373 extends SimpleRobot{
             LCD.updateLCD();
             flagA = true;
        }
-       if (!shootA & flagA) {
+       if (!shootA & flagA) { //if a is not pressed and it has been pressed set it to false
            flagA = false;
        }
        
@@ -158,8 +160,8 @@ public class Team3373 extends SimpleRobot{
             flagB = true;
         } 
        
-       if (!shootB & flagB) {
-           flagB = true;
+       if (!shootB & flagB) { //if b is not pressed and it has been pressed set it to false
+           flagB = false;
        }
         
         if (shootX & stageOneScaler <= 100 & !flagX){
@@ -170,8 +172,8 @@ public class Team3373 extends SimpleRobot{
            flagX = true;
         }   
         
-        if (!shootX & flagX) {
-            flagX = true;
+        if (!shootX & flagX) { //if x is not pressed and it has been pressed set it to false
+            flagX = false;
         }
         
         if (shootY & !flagY){
