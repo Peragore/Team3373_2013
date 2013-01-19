@@ -71,7 +71,7 @@ public void speedChange(){ //increases speed by amount/second designated. Needs 
            nowTime = team.robotTimer.get();
            double elapsedTime = nowTime - lastTime;
            String difference = Double.toString(elapsedTime);
-           team.LCD.println(Line.kUser2, 1, "difference");
+           team.LCD.println(Line.kUser2, 1, difference);
            if (team.target > 0) {
                //team.LCD.println(Line.kUser2, 1, "Adding " + team.target + "RPM");
                team.LCD.updateLCD();
