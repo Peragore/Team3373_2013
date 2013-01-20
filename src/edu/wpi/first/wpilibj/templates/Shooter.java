@@ -27,19 +27,19 @@ public class Shooter {
         double a = 0.1;
         return a;
     }
-    public double increaseSpeed(double a){
+    public double increaseSpeed(double a){ //increases stage 2 by 1/10 of possible speed
         a += 0.1;
         return a;
     }
-    public double decreaseSpeed(double a){
+    public double decreaseSpeed(double a){//decreases stage 2 by 1/10 of possible speed
         a -= 0.1;
         return a;
     }
-    public double increasePercentage(double a){
+    public double increasePercentage(double a){//increases percentage of what stage 2 is multiplyied by to get 1
         a += 0.05;
         return a;
     }
-    public double decreasePercentage(double a){
+    public double decreasePercentage(double a){//decreases percentage of what stage 2 is multiplyied by to get 1
         a -= 0.05;
         return a;
     }
