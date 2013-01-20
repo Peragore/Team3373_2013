@@ -152,10 +152,10 @@ public class Team3373 extends SimpleRobot{
    shootRY = shootStick.getRawAxis(5);
    shootDP = shootStick.getRawAxis(6);
    
-   if (robotTimer.get() >= startTime + 1) {
+
      StageOneTalon.set(ShooterSpeedStage1);
      StageTwoTalon.set(ShooterSpeedStage2);
-   }   
+ 
    
         //Shooter objShooter = new Shooter();
         
@@ -166,15 +166,12 @@ public class Team3373 extends SimpleRobot{
  
             flagStart = false;
         }   else if (shootA && flagA){//increases stage 2
-            
-            aTime = robotTimer.get();
-            
-            if (robotTimer.get() >= aTime + 1){
+
                 ShooterSpeedStage2 += 0.1;
                 ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
                 StageOneTalon.set(ShooterSpeedStage1);
                 StageTwoTalon.set(ShooterSpeedStage2);
-             }
+             
             
             if (ShooterSpeedStage2 >= 1) {
                 ShooterSpeedStage2 = 1;
@@ -183,19 +180,17 @@ public class Team3373 extends SimpleRobot{
             flagA = false;
 
         }   else if (shootB && flagB){//decrease stage 2
-            bTime = robotTimer.get();
-            if (robotTimer.get() >= bTime + 1) {
+
                 ShooterSpeedStage2 -= 0.1;
                 ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
                 StageOneTalon.set(ShooterSpeedStage1);
                 StageTwoTalon.set(ShooterSpeedStage2);
-            }
             
             if (ShooterSpeedStage2 <= 0) {
                 ShooterSpeedStage2 = 0;
             }            
             flagB = false;
-        } else if (shootX && flagX && !flagBack){//increases percentage between Stage1 and Stage2
+        } else if (shootX && flagX){//increases percentage between Stage1 and Stage2
             percentageScaler += 0.05;
             if (percentageScaler >= 1) {
                 percentageScaler = 1;
@@ -213,12 +208,10 @@ public class Team3373 extends SimpleRobot{
             StageOneTalon.set(ShooterSpeedStage1);
             StageTwoTalon.set(ShooterSpeedStage2);
             flagY = false;
-        } else if (flagBack2 && flagBack){//turns off
-            backTime = robotTimer.get();
-            if (robotTimer.get() >= backTime + .05){                
+        } else if (shootBack && flagBack){//turns off
+          
                 ShooterSpeedStage2 -= 0.1;
                 ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
-            }
             if (ShooterSpeedStage2 == 0){
                 flagBack = false;
             } 
@@ -227,9 +220,9 @@ public class Team3373 extends SimpleRobot{
             
         }
         
-        if (shootBack && flagBack){
-            flagBack2 = true;
-        } else if (!shootA && !flagA) { //toggles
+        //if (shootBack && flagBack){
+           // flagBack2 = true;
+        if (!shootA && !flagA) { //toggles
             flagA = true;
         } else if (!shootB && !flagB){
             flagB = true;
@@ -239,9 +232,9 @@ public class Team3373 extends SimpleRobot{
             flagY = true;
         } else if (!shootStart && !flagStart){
             flagStart = true;
-        }else if (!shootBack && !flagBack && ShooterSpeedStage2 == 0){
+        }else if (!shootBack && !flagBack){
             flagBack = true;
-            flagBack2 = false;
+            //flagBack2 = false;
         }
         
         //try {Thread.sleep(1000);} catch(Exception e){}
