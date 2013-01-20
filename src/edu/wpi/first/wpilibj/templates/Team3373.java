@@ -68,8 +68,8 @@ public class Team3373 extends SimpleRobot{
    *********************************/
    
    
-   double ShooterSpeedStage2 = 0.1;//was StageTwoTalon.get()
-   double percentageScaler = 0.5;
+   double ShooterSpeedStage2 = 0;//was StageTwoTalon.get()
+   double percentageScaler = 0.75;
    double ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;//was StageOneTalon.get()
    
    double ShooterSpeedMax = 5300.0;
@@ -114,8 +114,7 @@ public class Team3373 extends SimpleRobot{
      */
     public void operatorControl() {
         robotTimer.start();
-        while (isOperatorControl() & isDisabled()){
-           objShooter.shootInit(); 
+        while (isOperatorControl() & isDisabled()){ 
         }
    
    flagA = true;
@@ -152,72 +151,46 @@ public class Team3373 extends SimpleRobot{
    shootRY = shootStick.getRawAxis(5);
    shootDP = shootStick.getRawAxis(6);
    
-
-     StageOneTalon.set(ShooterSpeedStage1);
-     StageTwoTalon.set(ShooterSpeedStage2);
- 
    
-        //Shooter objShooter = new Shooter();
-        
-        //objShooter.shooterPrint();
-        //objShooter.Start();
-        if (shootStart && flagStart) {
-            startTime = robotTimer.get();
+     
+   
+  ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;   
+  StageOneTalon.set(ShooterSpeedStage1);
+  StageTwoTalon.set(ShooterSpeedStage2);
  
+        if (shootStart && flagStart) {
+            ShooterSpeedStage2 = objShooter.start();
             flagStart = false;
         }   else if (shootA && flagA){//increases stage 2
-
-                ShooterSpeedStage2 += 0.1;
-                ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
-                StageOneTalon.set(ShooterSpeedStage1);
-                StageTwoTalon.set(ShooterSpeedStage2);
-             
-            
+            ShooterSpeedStage2 = objShooter.increaseSpeed(ShooterSpeedStage2);
             if (ShooterSpeedStage2 >= 1) {
                 ShooterSpeedStage2 = 1;
             }
-            
             flagA = false;
 
         }   else if (shootB && flagB){//decrease stage 2
-
-                ShooterSpeedStage2 -= 0.1;
-                ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
-                StageOneTalon.set(ShooterSpeedStage1);
-                StageTwoTalon.set(ShooterSpeedStage2);
-            
+            ShooterSpeedStage2 = objShooter.decreaseSpeed(ShooterSpeedStage2);
             if (ShooterSpeedStage2 <= 0) {
                 ShooterSpeedStage2 = 0;
             }            
             flagB = false;
         } else if (shootX && flagX){//increases percentage between Stage1 and Stage2
-            percentageScaler += 0.05;
+            percentageScaler = objShooter.decreasePercentage(percentageScaler);
             if (percentageScaler >= 1) {
                 percentageScaler = 1;
             }
-            ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
-            StageOneTalon.set(ShooterSpeedStage1);
-            StageTwoTalon.set(ShooterSpeedStage2);
             flagX = false;
         } else if (shootY && flagY){//decreases percentage between Stage1 and Stage2
-            percentageScaler -= 0.05;
+            percentageScaler = objShooter.decreasePercentage(percentageScaler);
             if (percentageScaler <= 0 ) {
                 percentageScaler = 0;
-            } 
-            ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
-            StageOneTalon.set(ShooterSpeedStage1);
-            StageTwoTalon.set(ShooterSpeedStage2);
+            }
             flagY = false;
         } else if (shootBack && flagBack){//turns off
-          
-                ShooterSpeedStage2 -= 0.1;
-                ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
+          ShooterSpeedStage2 = objShooter.stop();
             if (ShooterSpeedStage2 == 0){
                 flagBack = false;
-            } 
-            ShooterSpeedStage2 = .1;
-            ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;
-            
+            }
         }
         
         //if (shootBack && flagBack){
