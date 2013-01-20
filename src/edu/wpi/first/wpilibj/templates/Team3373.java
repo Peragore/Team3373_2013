@@ -211,7 +211,7 @@ public class Team3373 extends SimpleRobot{
         
         
         
-        frontCameraServo.set(0.0);
+        frontCameraServo.set(0.5);
         double servoPosition = frontCameraServo.get();
         String tilt = Double.toString(servoPosition);
         LCD.println(Line.kUser6, 1, "Servo: " + tilt);
@@ -222,7 +222,7 @@ public class Team3373 extends SimpleRobot{
         catch(Exception e){
             
         }
-        frontCameraServo.set(1.0);
+        frontCameraServo.set(0.75);
         servoPosition = frontCameraServo.get();
         tilt = Double.toString(servoPosition);
         LCD.println(Line.kUser6, 1, "Servo: " + tilt);
