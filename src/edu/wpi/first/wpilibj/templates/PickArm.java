@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.templates.*;
  */
 public class PickArm {
     Team3373 team;
-    Relay ArmSpike = new Relay(1);
+    Relay ArmSpike = new Relay(1, Direction.kBoth);
     public PickArm(Team3373 t){
        team = t;
     }
@@ -21,9 +21,11 @@ public class PickArm {
     
     public void extend() {
         if (team.shootLB){
-            ArmSpike.setDirection(Direction.kForward);
+            ArmSpike.set(Value.kForward);
         } else if (team.shootRB){
-            ArmSpike.setDirection(Direction.kReverse);
+            ArmSpike.set(Value.kReverse);
+        } else {
+            ArmSpike.set(Value.kOff);
         }
     }
 }

@@ -12,6 +12,7 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStationLCD.Line;
+import edu.wpi.first.wpilibj.templates.*;
 //import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.SimpleRobot;
 //import edu.wpi.first.wpilibj.templates.Shooter;
@@ -38,7 +39,7 @@ public class Team3373 extends SimpleRobot{
    Shooter objShooter = new Shooter(this);
    //Deadband objDeadband = new Deadband();
    Timer robotTimer = new Timer();
-   
+   PickArm Arm = new PickArm(this);
    /************************
     * XBOX Shooter Buttons *
     * *********************/
@@ -158,7 +159,7 @@ public class Team3373 extends SimpleRobot{
   ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;   
   StageOneTalon.set(ShooterSpeedStage1);
   StageTwoTalon.set(ShooterSpeedStage2);
- 
+            Arm.extend();
         if (shootStart && flagStart) {
             ShooterSpeedStage2 = objShooter.start();
             flagStart = false;
@@ -211,13 +212,13 @@ public class Team3373 extends SimpleRobot{
         
         
         
-        frontCameraServo.set(0.5);
+        /*frontCameraServo.set(0.5);
         double servoPosition = frontCameraServo.get();
         String tilt = Double.toString(servoPosition);
         LCD.println(Line.kUser6, 1, "Servo: " + tilt);
         LCD.updateLCD();
         try{
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
         }
         catch(Exception e){
             
@@ -227,7 +228,7 @@ public class Team3373 extends SimpleRobot{
         tilt = Double.toString(servoPosition);
         LCD.println(Line.kUser6, 1, "Servo: " + tilt);
         LCD.updateLCD();
-        
+        */
         
         
         
