@@ -188,6 +188,7 @@ public class Team3373 extends SimpleRobot{
             flagY = false;
         } else if (shootBack && flagBack){//turns off
           ShooterSpeedStage2 = objShooter.stop();
+          percentageScaler = 0.75;
             if (ShooterSpeedStage2 == 0){
                 flagBack = false;
             }
