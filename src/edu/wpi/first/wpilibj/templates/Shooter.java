@@ -13,18 +13,78 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Shooter {
 
-
-   
-     /**************
-    * Shooter code
-    * *************/
    Team3373 team;
    DriverStationLCD dsLCD;
-   public double lastTime = 0.0;
     public Shooter(Team3373 t){
        team = t;
    }
    
+     /**************
+    * Shooter code
+    * *************/
+
+    public double start(){
+        double a = 0.1;
+        return a;
+    }
+    public double increaseSpeed(double a){
+        a += 0.1;
+        return a;
+    }
+    public double decreaseSpeed(double a){
+        a -= 0.1;
+        return a;
+    }
+    public double increasePercentage(double a){
+        a += 0.05;
+        return a;
+    }
+    public double decreasePercentage(double a){
+        a -= 0.05;
+        return a;
+    }
+    public double stop(){
+        double a = 0;
+        return a;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+   /*
    public double RPMtarget(double a){ //defines target based on input. Appeaers to be better than speed increase. can probbaly be used in place of a bunch of code.
       if (team.shootA){
            team.target = ((team.RPMModifier * team.ShooterSpeedScale) + team.currentRPMT2) * a;
@@ -41,9 +101,9 @@ public class Shooter {
        team.StageTwoTalon.set(0);
    }
        
-       /******************
+       ******************
         * Initialization *
-        * ****************/
+        * ****************
  public void Start(){ //Initialization code, used to turn motors on and off
      team.LCD.println(Line.kUser2, 1, "Inside");  
      System.out.println("Inside");
@@ -59,9 +119,9 @@ public class Shooter {
            team.LCD.updateLCD();
        }
  }
-       /*********************
+        *********************
         * Increase/Decrease *
-        * *******************/
+        * *******************
 public void speedChange(){ //increases speed by amount/second designated. Needs the per second part
            double nowTime;
            RPMtarget(1);
@@ -85,7 +145,7 @@ public void speedChange(){ //increases speed by amount/second designated. Needs 
            team.LCD.updateLCD();
  }
        
- /* public void speedDecrease() { //decrease speed by set number. Works like speedIncrease() in reverse
+  public void speedDecrease() { //decrease speed by set number. Works like speedIncrease() in reverse
            //This code is used to subtrack the current speed of Stage 2
            team.StageTwoTalon.set(team.target);
            team.StageOneTalon.set(team.target *.5);       
@@ -96,7 +156,7 @@ public void speedChange(){ //increases speed by amount/second designated. Needs 
                //if the speed is less than 0, turn off
            }
        }
-*/
+
 public void percentageAdd() { //adds 5% to the scaler of stage one       
            team.stageOneScaler += 0.05;
            //changes stage1 percentage of stage2 adds 5%
@@ -132,4 +192,5 @@ public void shooterPrint() { // prints different variables. NYI
        team.LCD.println(Line.kUser4, 1, "Target Speed: " + (RPMtarget(1)) + "RPM");
        team.LCD.updateLCD();        
     }
+    */
 }
