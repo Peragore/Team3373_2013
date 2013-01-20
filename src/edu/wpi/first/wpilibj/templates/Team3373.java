@@ -29,6 +29,7 @@ public class Team3373 extends SimpleRobot{
     
    int StageOneMotorPWM = 1; //Declares channel of StageOne PWM
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
+   Servo frontCameraServo = new Servo(6);
    Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
    DriverStationLCD LCD = DriverStationLCD.getInstance();
@@ -163,35 +164,19 @@ public class Team3373 extends SimpleRobot{
             flagStart = false;
         }   else if (shootA && flagA){//increases stage 2
             ShooterSpeedStage2 = objShooter.increaseSpeed(ShooterSpeedStage2);
-            if (ShooterSpeedStage2 >= 1) {
-                ShooterSpeedStage2 = 1;
-            }
             flagA = false;
-
         }   else if (shootB && flagB){//decrease stage 2
-            ShooterSpeedStage2 = objShooter.decreaseSpeed(ShooterSpeedStage2);
-            if (ShooterSpeedStage2 <= 0) {
-                ShooterSpeedStage2 = 0;
-            }            
+            ShooterSpeedStage2 = objShooter.decreaseSpeed(ShooterSpeedStage2);           
             flagB = false;
         } else if (shootX && flagX){//increases percentage between Stage1 and Stage2
             percentageScaler = objShooter.decreasePercentage(percentageScaler);
-            if (percentageScaler >= 1) {
-                percentageScaler = 1;
-            }
             flagX = false;
         } else if (shootY && flagY){//decreases percentage between Stage1 and Stage2
             percentageScaler = objShooter.decreasePercentage(percentageScaler);
-            if (percentageScaler <= 0 ) {
-                percentageScaler = 0;
-            }
             flagY = false;
         } else if (shootBack && flagBack){//turns off
           ShooterSpeedStage2 = objShooter.stop();
           percentageScaler = 0.75;
-            if (ShooterSpeedStage2 == 0){
-                flagBack = false;
-            }
         }
         
         //if (shootBack && flagBack){
@@ -223,6 +208,31 @@ public class Team3373 extends SimpleRobot{
         LCD.println(Line.kUser1, 1, "RPM1: " + (speedOne * Scaler));
         LCD.println(Line.kUser2, 1, "RPM2: " + (speedTwo * Scaler));
         LCD.updateLCD();
+        
+        
+        
+        frontCameraServo.set(0.0);
+        double servoPosition = frontCameraServo.get();
+        String tilt = Double.toString(servoPosition);
+        LCD.println(Line.kUser6, 1, "Servo: " + tilt);
+        LCD.updateLCD();
+        try{
+            Thread.sleep(1000);
+        }
+        catch(Exception e){
+            
+        }
+        frontCameraServo.set(1.0);
+        servoPosition = frontCameraServo.get();
+        tilt = Double.toString(servoPosition);
+        LCD.println(Line.kUser6, 1, "Servo: " + tilt);
+        LCD.updateLCD();
+        
+        
+        
+        
+        
+        
        /*if (shootA & !flagA) { //increases speed
             objShooter.speedChange();
             LCD.println(Line.kUser2, 1, "Pressing A");
