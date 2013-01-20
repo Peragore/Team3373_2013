@@ -163,35 +163,19 @@ public class Team3373 extends SimpleRobot{
             flagStart = false;
         }   else if (shootA && flagA){//increases stage 2
             ShooterSpeedStage2 = objShooter.increaseSpeed(ShooterSpeedStage2);
-            if (ShooterSpeedStage2 >= 1) {
-                ShooterSpeedStage2 = 1;
-            }
             flagA = false;
-
         }   else if (shootB && flagB){//decrease stage 2
-            ShooterSpeedStage2 = objShooter.decreaseSpeed(ShooterSpeedStage2);
-            if (ShooterSpeedStage2 <= 0) {
-                ShooterSpeedStage2 = 0;
-            }            
+            ShooterSpeedStage2 = objShooter.decreaseSpeed(ShooterSpeedStage2);           
             flagB = false;
         } else if (shootX && flagX){//increases percentage between Stage1 and Stage2
             percentageScaler = objShooter.decreasePercentage(percentageScaler);
-            if (percentageScaler >= 1) {
-                percentageScaler = 1;
-            }
             flagX = false;
         } else if (shootY && flagY){//decreases percentage between Stage1 and Stage2
             percentageScaler = objShooter.decreasePercentage(percentageScaler);
-            if (percentageScaler <= 0 ) {
-                percentageScaler = 0;
-            }
             flagY = false;
         } else if (shootBack && flagBack){//turns off
           ShooterSpeedStage2 = objShooter.stop();
           percentageScaler = 0.75;
-            if (ShooterSpeedStage2 == 0){
-                flagBack = false;
-            }
         }
         
         //if (shootBack && flagBack){
