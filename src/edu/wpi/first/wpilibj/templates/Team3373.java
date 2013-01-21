@@ -33,7 +33,7 @@ public class Team3373 extends SimpleRobot{
    Servo frontCameraServo = new Servo(6);
    Relay GrabSpike = new Relay(1);
    Solenoid grabSolenoid = new Solenoid(8);
-   AnalogChannel pot1 = new AnalogChannel(8);
+   AnalogChannel pot1 = new AnalogChannel(7);
    DigitalInput armLimit = new DigitalInput(3); //returns true if clicked
    Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
@@ -186,7 +186,7 @@ public class Team3373 extends SimpleRobot{
         //Arm.extend();
         objShooter.elevator();
         Arm.grabFrisbee();
-
+         
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();
@@ -223,11 +223,7 @@ public class Team3373 extends SimpleRobot{
         /************
          * Solenoid *
          ***********/
-            
-        if (shootA && flagA){
-            
-        }
-            
+     
         /*******************
          * Servo Test Code *
          ******************/
