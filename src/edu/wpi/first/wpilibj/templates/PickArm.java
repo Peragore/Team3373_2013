@@ -20,28 +20,11 @@ public class PickArm {
     }
     
 
-    /*
+
     public void extend() {
-
-        
-        if (team.armLimit.get()) {
-            team.LCD.println(DriverStationLCD.Line.kUser1, 1, "1");
-            team.LCD.updateLCD();
-        } else if (!team.armLimit.get()) {
-            team.LCD.println(DriverStationLCD.Line.kUser5, 1, "0");
-            team.LCD.updateLCD();
-        }
-        
-        if (team.armLimit.get()){ 
-            team.GrabSpike.set(Value.kForward);
-        } else if (team.shootRB){
-            team.GrabSpike.set(Value.kReverse);
-        } else {
-            team.GrabSpike.set(Value.kOff);
-        }
-        
-
-    } */
+        String potString = Double.toString(team.pot1.getValue());
+        team.LCD.println(DriverStationLCD.Line.kUser1, 1, potString);
+    } 
     public void grabFrisbee() {//used to grab frisbee after exteneded
 
         
