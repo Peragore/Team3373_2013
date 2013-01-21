@@ -39,8 +39,7 @@ public class PickArm {
         } else {
             ArmSpike.set(Value.kOff);
         }
-        if (team.shootA) {
-            team.LCD.free();
-        }
+
+
     }
 }
