@@ -32,6 +32,8 @@ public class Team3373 extends SimpleRobot{
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
    Servo frontCameraServo = new Servo(6);
    Relay GrabSpike = new Relay(1);
+   Solenoid grabSolenoid = new Solenoid(8);
+   AnalogChannel pot1 = new AnalogChannel(8);
    DigitalInput armLimit = new DigitalInput(3); //returns true if clicked
    Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
@@ -182,7 +184,7 @@ public class Team3373 extends SimpleRobot{
         }
         */
         //Arm.extend();
-
+        objShooter.elevator();
         Arm.grabFrisbee();
 
         /*
@@ -217,9 +219,18 @@ public class Team3373 extends SimpleRobot{
         }else if (!shootBack && !flagBack){
             flagBack = true;
         }
+        
+        /************
+         * Solenoid *
+         ***********/
             
+        if (shootA && flagA){
             
-        /*Servo Test Code*/
+        }
+            
+        /*******************
+         * Servo Test Code *
+         ******************/
         if (shootTriggers<= 0.8){
             shootTriggers = 0.8;
         } else if (shootTriggers >= 0.25){
@@ -246,50 +257,7 @@ public class Team3373 extends SimpleRobot{
         tilt = Double.toString(servoPosition);
         LCD.println(Line.kUser6, 1, "Servo: " + tilt);
         LCD.updateLCD();
-        */
-        
-        
-        
-        
-        
-       /*if (shootA & !flagA) { //increases speed
-            objShooter.speedChange();
-            LCD.println(Line.kUser2, 1, "Pressing A");
-            LCD.updateLCD();
-            flagA = true;
-       }
-       if (!shootA & flagA) { //if a is not pressed and it has been pressed set it to false
-           flagA = false;
-       }
-       
-       if (shootB & !flagB) { //decreases speed
-            objShooter.speedChange();
-            LCD.println(Line.kUser2, 1, "Pressing B");
-            LCD.updateLCD();
-            flagB = true;
-        } 
-       
-       if (!shootB & flagB) { //if b is not pressed and it has been pressed set it to false
-           flagB = false;
-       }
-        
-        if (shootX & stageOneScaler <= 100 & !flagX){
-           stageOneScaler += 0.05;
-           //changes stage1 percentage of stage2 adds 5%
-           LCD.println(Line.kUser6, 1, "Adding 5% to Stage One Percentile");
-           LCD.updateLCD();
-           flagX = true;
-        }   
-        
-        if (!shootX & flagX) { //if x is not pressed and it has been pressed set it to false
-            flagX = false;
-        }
-        
-        if (shootY & !flagY){
-            objShooter.percentageSubtract();
-            LCD.println(Line.kUser2, 1, "Pressing Y");
-            LCD.updateLCD();
-        }*/ 
+        */ 
         
         String currentTime = Double.toString(robotTimer.get());
         LCD.println(Line.kUser6, 1, currentTime);
