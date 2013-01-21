@@ -211,6 +211,7 @@ public class Team3373 extends SimpleRobot{
         LCD.updateLCD();
         
         
+        /*Servo Test Code*/
         
         /*frontCameraServo.set(0.5);
         double servoPosition = frontCameraServo.get();
