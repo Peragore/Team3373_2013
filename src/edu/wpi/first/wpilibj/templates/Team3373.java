@@ -125,7 +125,6 @@ public class Team3373 extends SimpleRobot{
    flagY = true;
    flagStart = true;
    flagBack = true;
-   flagBack2 = false;
    
    while (isOperatorControl() & isEnabled()){
            /************************
@@ -180,7 +179,7 @@ public class Team3373 extends SimpleRobot{
           ShooterSpeedStage2 = objShooter.stop();
           percentageScaler = 0.75;
         }
-        }
+        */
         
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();
@@ -195,7 +194,7 @@ public class Team3373 extends SimpleRobot{
         LCD.println(Line.kUser2, 1, "RPM2: " + (speedTwo * Scaler));
         LCD.updateLCD();
         
-        */
+        
         /*************
         **Flag Code***
         *************/
@@ -212,18 +211,18 @@ public class Team3373 extends SimpleRobot{
             flagStart = true;
         }else if (!shootBack && !flagBack){
             flagBack = true;
- 
+        }
             
             
         /*Servo Test Code*/
-        
-        if (shootA && flagA){
-            frontCameraServo.set(0.5);
-            flagA = false;
-        } else if(shootB && flagB){
-            frontCameraServo.set(0.8);
-            flagB = false;
+        if (shootTriggers<= 0.8){
+            shootTriggers = 0.8;
+        } else if (shootTriggers >= 0.25){
+            shootTriggers = 0.25;
         }
+            
+        frontCameraServo.set(shootTriggers);
+        
         
         
         /*frontCameraServo.set(0.5);
@@ -290,7 +289,8 @@ public class Team3373 extends SimpleRobot{
         String currentTime = Double.toString(robotTimer.get());
         LCD.println(Line.kUser6, 1, currentTime);
     
+        
         }
     }
 }
-}
+
