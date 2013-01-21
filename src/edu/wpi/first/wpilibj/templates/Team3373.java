@@ -31,7 +31,7 @@ public class Team3373 extends SimpleRobot{
    int StageOneMotorPWM = 1; //Declares channel of StageOne PWM
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
    Servo frontCameraServo = new Servo(6);
-   DigitalInput armLimit = new DigitalInput(3);
+   DigitalInput armLimit = new DigitalInput(3); //returns true if clicked
    Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
    DriverStationLCD LCD = DriverStationLCD.getInstance();
