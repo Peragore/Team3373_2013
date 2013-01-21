@@ -31,6 +31,7 @@ public class Team3373 extends SimpleRobot{
    int StageOneMotorPWM = 1; //Declares channel of StageOne PWM
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
    Servo frontCameraServo = new Servo(6);
+   DigitalInput armLimit = new DigitalInput(3);
    Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
    DriverStationLCD LCD = DriverStationLCD.getInstance();
@@ -159,7 +160,6 @@ public class Team3373 extends SimpleRobot{
   ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;   
   StageOneTalon.set(ShooterSpeedStage1);
   StageTwoTalon.set(ShooterSpeedStage2);
-            Arm.extend();
         if (shootStart && flagStart) {
             ShooterSpeedStage2 = objShooter.start();
             flagStart = false;
@@ -180,7 +180,7 @@ public class Team3373 extends SimpleRobot{
           percentageScaler = 0.75;
         }
         */
-        
+        Arm.extend();
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();
         double speedOne = StageOneTalon.get();
@@ -189,9 +189,9 @@ public class Team3373 extends SimpleRobot{
         String speed2 = Double.toString(speedTwo);
         LCD.println(Line.kUser3, 1, ((StageOneTalon.get()/StageTwoTalon.get()) *100) + "                       %");
         LCD.println(Line.kUser4, 1,"S1:" + speed1);
-        LCD.println(Line.kUser5, 1,"S2:" + speed2);
-        LCD.println(Line.kUser1, 1, "RPM1: " + (speedOne * Scaler));
-        LCD.println(Line.kUser2, 1, "RPM2: " + (speedTwo * Scaler));
+        LCD.println(Line.kUser2, 1,"S2:" + speed2);
+        //LCD.println(Line.kUser1, 1, "RPM1: " + (speedOne * Scaler));
+        //LCD.println(Line.kUser2, 1, "RPM2: " + (speedTwo * Scaler));
         LCD.updateLCD();
         
         
