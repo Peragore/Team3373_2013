@@ -22,9 +22,14 @@ public class PickArm {
 
 
     public void extend() {
-        String potString = Double.toString(team.pot1.getValue());
+        if (team.pot1.getVoltage() > 0.5){
+            
+        }
+        String potString = Double.toString(team.pot1.getVoltage());
         team.LCD.println(DriverStationLCD.Line.kUser1, 1, potString);
     } 
+    
+    
     public void grabFrisbee() {//used to grab frisbee after exteneded
 
         
