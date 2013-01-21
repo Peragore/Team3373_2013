@@ -16,6 +16,7 @@ public class Deadband{
         }
     }*/
     
+    //Author: Nick Iasso
     public boolean zeroDeadBand (double topNumber, double bottomNumber, double value){
         boolean a = false;
         if (bottomNumber > value && value > topNumber){ /*Checks to see if the input value is between two numbers*/
@@ -26,6 +27,7 @@ public class Deadband{
         }
     }
     
+    //Author: Nick Iasso
     public double fluxDeadBand (double value){
         /*Clips off the decimals to the hundreth place*/
         double a = value*100;
