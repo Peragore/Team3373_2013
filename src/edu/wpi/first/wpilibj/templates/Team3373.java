@@ -153,9 +153,10 @@ public class Team3373 extends SimpleRobot{
    shootRY = shootStick.getRawAxis(5);
    shootDP = shootStick.getRawAxis(6);
    
-   
-     
-   
+   /****************
+   **Shooter Code***
+   ****************/
+   /*
   ShooterSpeedStage1 = ShooterSpeedStage2 * percentageScaler;   
   StageOneTalon.set(ShooterSpeedStage1);
   StageTwoTalon.set(ShooterSpeedStage2);
@@ -179,22 +180,6 @@ public class Team3373 extends SimpleRobot{
           ShooterSpeedStage2 = objShooter.stop();
           percentageScaler = 0.75;
         }
-        
-        //if (shootBack && flagBack){
-           // flagBack2 = true;
-        if (!shootA && !flagA) { //toggles
-            flagA = true;
-        } else if (!shootB && !flagB){
-            flagB = true;
-        }else if (!shootX && !flagX){
-            flagX = true;
-        }else if (!shootY && !flagY){
-            flagY = true;
-        } else if (!shootStart && !flagStart){
-            flagStart = true;
-        }else if (!shootBack && !flagBack){
-            flagBack = true;
-            //flagBack2 = false;
         }
         
         //try {Thread.sleep(1000);} catch(Exception e){}
@@ -210,8 +195,36 @@ public class Team3373 extends SimpleRobot{
         LCD.println(Line.kUser2, 1, "RPM2: " + (speedTwo * Scaler));
         LCD.updateLCD();
         
-        
+        */
+        /*************
+        **Flag Code***
+        *************/
+   
+        if (!shootA && !flagA) { //toggles
+            flagA = true;
+        } else if (!shootB && !flagB){
+            flagB = true;
+        }else if (!shootX && !flagX){
+            flagX = true;
+        }else if (!shootY && !flagY){
+            flagY = true;
+        } else if (!shootStart && !flagStart){
+            flagStart = true;
+        }else if (!shootBack && !flagBack){
+            flagBack = true;
+ 
+            
+            
         /*Servo Test Code*/
+        
+        if (shootA && flagA){
+            frontCameraServo.set(0.5);
+            flagA = false;
+        } else if(shootB && flagB){
+            frontCameraServo.set(0.8);
+            flagB = false;
+        }
+        
         
         /*frontCameraServo.set(0.5);
         double servoPosition = frontCameraServo.get();
@@ -276,8 +289,8 @@ public class Team3373 extends SimpleRobot{
         
         String currentTime = Double.toString(robotTimer.get());
         LCD.println(Line.kUser6, 1, currentTime);
-
-    }
-    }
     
+        }
+    }
+}
 }
