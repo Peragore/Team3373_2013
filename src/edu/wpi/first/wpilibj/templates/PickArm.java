@@ -32,7 +32,7 @@ public class PickArm {
             team.LCD.updateLCD();
         }
         
-        if (team.shootLB){
+        if (team.armLimit.get()){ 
             ArmSpike.set(Value.kForward);
         } else if (team.shootRB){
             ArmSpike.set(Value.kReverse);
