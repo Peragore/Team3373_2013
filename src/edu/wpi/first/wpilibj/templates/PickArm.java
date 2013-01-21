@@ -12,18 +12,18 @@ import edu.wpi.first.wpilibj.templates.*;
  * @author Philip2
  */
 public class PickArm {
+    int grabStatus = 0;
     Team3373 team;
-    Relay ArmSpike = new Relay(1);
-
+    String grabString;
     public PickArm(Team3373 t){
        team = t;
     }
     
 
-    
+    /*
     public void extend() {
 
-
+        
         if (team.armLimit.get()) {
             team.LCD.println(DriverStationLCD.Line.kUser1, 1, "1");
             team.LCD.updateLCD();
@@ -33,13 +33,45 @@ public class PickArm {
         }
         
         if (team.armLimit.get()){ 
-            ArmSpike.set(Value.kForward);
+            team.GrabSpike.set(Value.kForward);
         } else if (team.shootRB){
-            ArmSpike.set(Value.kReverse);
+            team.GrabSpike.set(Value.kReverse);
         } else {
-            ArmSpike.set(Value.kOff);
+            team.GrabSpike.set(Value.kOff);
         }
+        
 
+    } */
+    public void grabFrisbee() {//used to grab frisbee after exteneded
 
+        
+        grabString = Integer.toString(grabStatus);
+        team.LCD.println(DriverStationLCD.Line.kUser1, 1, grabString);       
+        
+        switch(grabStatus){
+            case 0: //init stage, not running and no signal to run
+            if (team.shootY && team.flagY){
+                grabStatus = 1;
+                team.flagY = false;
+            }
+                break;
+            case 1:// parked and signal to run
+                team.GrabSpike.set(Value.kForward);
+                if (!team.armLimit.get()){
+                grabStatus = 2;
+                }
+                break;
+            case 2: //running
+                team.GrabSpike.set(Value.kForward);
+                if(team.armLimit.get()){
+                    grabStatus = 3;  
+                }
+                break;
+            case 3: //back home, off
+                team.GrabSpike.set(Value.kOff);
+                grabStatus = 0;
+            }
+        
+        team.LCD.updateLCD();
     }
 }

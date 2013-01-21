@@ -31,6 +31,7 @@ public class Team3373 extends SimpleRobot{
    int StageOneMotorPWM = 1; //Declares channel of StageOne PWM
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
    Servo frontCameraServo = new Servo(6);
+   Relay GrabSpike = new Relay(1);
    DigitalInput armLimit = new DigitalInput(3); //returns true if clicked
    Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
@@ -180,7 +181,11 @@ public class Team3373 extends SimpleRobot{
           percentageScaler = 0.75;
         }
         */
-        Arm.extend();
+        //Arm.extend();
+
+        Arm.grabFrisbee();
+
+        /*
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();
         double speedOne = StageOneTalon.get();
@@ -192,7 +197,7 @@ public class Team3373 extends SimpleRobot{
         LCD.println(Line.kUser2, 1,"S2:" + speed2);
         //LCD.println(Line.kUser1, 1, "RPM1: " + (speedOne * Scaler));
         //LCD.println(Line.kUser2, 1, "RPM2: " + (speedTwo * Scaler));
-        LCD.updateLCD();
+        LCD.updateLCD();*/
         
         
         /*************
