@@ -184,7 +184,7 @@ public class Team3373 extends SimpleRobot{
         }
         */
         //Arm.extend();
-        objShooter.elevator();
+        //objShooter.elevator();
         Arm.grabFrisbee();
          
         /*
@@ -223,7 +223,7 @@ public class Team3373 extends SimpleRobot{
         /************
          * Solenoid *
          ***********/
-     
+
         /*******************
          * Servo Test Code *
          ******************/
@@ -234,7 +234,8 @@ public class Team3373 extends SimpleRobot{
         }
             
         frontCameraServo.set(shootTriggers);
-        
+        String potString = Double.toString(pot1.getVoltage());
+        LCD.println(DriverStationLCD.Line.kUser3, 1, potString);
         
         
         /*frontCameraServo.set(0.5);
@@ -261,5 +262,5 @@ public class Team3373 extends SimpleRobot{
         
         }
     }
-}
+//}
 
