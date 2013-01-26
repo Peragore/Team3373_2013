@@ -131,6 +131,8 @@ public class Team3373 extends SimpleRobot{
    boolean flagStart;
    boolean flagBack;
    boolean flagBack2;
+   boolean flagLeft;
+   boolean flagRight;
    public Team3373(){
         
     }
@@ -155,6 +157,8 @@ public class Team3373 extends SimpleRobot{
    flagY = true;
    flagStart = true;
    flagBack = true;
+   flagRight = true;
+   flagLeft = true;
    
    while (isOperatorControl() & isEnabled()){
    /**********************
@@ -239,6 +243,7 @@ public class Team3373 extends SimpleRobot{
         Arm.armUp();
         Arm.armDown();
         Arm.goToPosition(2.5);
+        objShooter.elevator();
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();

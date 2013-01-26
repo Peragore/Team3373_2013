@@ -53,21 +53,21 @@ public class Shooter {
         return a;
     }
     public void elevator(){
-        boolean flagRight = true;
-        boolean flagLeft = true;
-        if (team.pot2.getVoltage() >= 4.8 ) {
-            flagRight = false;
-        } else if (team.pot2.getVoltage() <= .2){
-            flagLeft = false;
-        } else if (!(team.pot2.getVoltage() <= .2)){
-            flagLeft = true;
-        } else if (!(team.pot2.getVoltage() >= 4.8)){
-            flagRight = true;
+
+        
+        if (team.pot1.getVoltage() >= 4.8 ) {
+            team.flagRight = false;
+        } else if (team.pot1.getVoltage() <= .2){
+            team.flagLeft = false;
+        } else if (team.pot1.getVoltage() > .2){
+            team.flagLeft = true;
+        } else if (team.pot1.getVoltage() < 4.8){
+            team.flagRight = true;
         }
-        if (team.shootLB && flagLeft){
-            team.ShootSpike.set(Value.kReverse);
-        } else if (team.shootRB && flagRight){
-            team.ShootSpike.set(Value.kForward);
+        if (team.shootLB && team.flagLeft){
+            team.GrabSpike.set(Value.kReverse);
+        } else if (team.shootRB && team.flagRight){
+            team.GrabSpike.set(Value.kForward);
         }        
         
         
