@@ -53,12 +53,32 @@ public class Shooter {
         return a;
     }
     public void elevator(){
-        if(team.shootA && !team.shootB){
+
+        
+        if (team.pot1.getVoltage() >= 4.8 ) {
+            team.flagRight = false;
+        } else if (team.pot1.getVoltage() <= .2){
+            team.flagLeft = false;
+        } else if (team.pot1.getVoltage() > .2){
+            team.flagLeft = true;
+        } else if (team.pot1.getVoltage() < 4.8){
+            team.flagRight = true;
+        }
+        if (team.shootLB && team.flagLeft){
+            team.GrabSpike.set(Value.kReverse);
+        } else if (team.shootRB && team.flagRight){
+            team.GrabSpike.set(Value.kForward);
+        }        
+        
+        
+        
+        
+        /*if(team.shootA && !team.shootB){
             team.GrabSpike.set(Value.kForward);
         } else if(!team.shootA && team.shootB){
             team.GrabSpike.set(Value.kReverse);
         } else {
             team.GrabSpike.set(Value.kOff);
-        }   
+        } */  
     }
   }
