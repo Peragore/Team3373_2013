@@ -185,8 +185,9 @@ public class Team3373 extends SimpleRobot{
         */
         //Arm.extend();
         //objShooter.elevator();
-        Arm.grabFrisbee();
-         
+        //Arm.grabFrisbee();
+        Arm.armUp();
+        Arm.armDown();
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();

@@ -52,7 +52,7 @@ public class Shooter {
         double a = 0;
         return a;
     }
-    public void elevator(){
+    /*public void elevator(){
         if(team.shootA && !team.shootB){
             team.GrabSpike.set(Value.kForward);
         } else if(!team.shootA && team.shootB){
@@ -60,5 +60,5 @@ public class Shooter {
         } else {
             team.GrabSpike.set(Value.kOff);
         }   
-    }
+    }*/
   }

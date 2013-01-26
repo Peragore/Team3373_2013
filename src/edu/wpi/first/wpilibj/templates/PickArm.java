@@ -15,13 +15,37 @@ public class PickArm {
     int grabStatus = 0;
     Team3373 team;
     String grabString;
+    double lastTime;
+    double previousTime;
+    boolean pickUpFlag = true;
     public PickArm(Team3373 t){
        team = t;
     }
     
 
-
-    public void extend() {
+    public void armUp(){
+        if (team.shootA && pickUpFlag){
+            lastTime = team.robotTimer.get();
+            team.GrabSpike.set(Value.kForward);
+            pickUpFlag = false;
+        } 
+        if ((team.robotTimer.get() - lastTime) >= 2){
+            team.GrabSpike.set(Value.kOff);
+            pickUpFlag = true;
+        }
+    }
+    public void armDown(){
+        if (team.shootB && pickUpFlag){
+            lastTime = team.robotTimer.get();
+            team.GrabSpike.set(Value.kReverse);
+            pickUpFlag = false;
+        } 
+        if ((team.robotTimer.get() - lastTime) >= 2){
+            team.GrabSpike.set(Value.kOff);
+            pickUpFlag = true;
+        }
+    }
+    public void rotate() {
         if (team.pot1.getVoltage() > 0.5){
             
         }
@@ -30,7 +54,7 @@ public class PickArm {
     } 
     
     
-    public void grabFrisbee() {//used to grab frisbee after exteneded
+    public void grabFrisbee() {//used to create suction after arm goes down to grab frisbee
 
         
         grabString = Integer.toString(grabStatus);
