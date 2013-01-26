@@ -51,6 +51,7 @@ public class PickArm {
         }
         String potString = Double.toString(team.pot1.getVoltage());
         team.LCD.println(DriverStationLCD.Line.kUser1, 1, potString);
+        team.LCD.updateLCD();
     } 
     
     

@@ -185,7 +185,7 @@ public class Team3373 extends SimpleRobot{
           percentageScaler = 0.75;
         }
         */
-        //Arm.extend();
+        Arm.rotate();
         //objShooter.elevator();
         //Arm.grabFrisbee();
         Arm.armUp();
@@ -237,9 +237,7 @@ public class Team3373 extends SimpleRobot{
         }
             
         frontCameraServo.set(shootTriggers);
-        String potString = Double.toString(pot1.getVoltage());
-        LCD.println(DriverStationLCD.Line.kUser3, 1, potString);
-        
+
         
         /*frontCameraServo.set(0.5);
         double servoPosition = frontCameraServo.get();
