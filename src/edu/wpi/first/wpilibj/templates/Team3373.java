@@ -46,7 +46,7 @@ public class Team3373 extends SimpleRobot{
    //Deadband objDeadband = new Deadband();
    Timer robotTimer = new Timer();
    PickArm Arm = new PickArm(this);
-   drive Drive = new drive(this);
+   //drive Drive = new drive(this);
    /**********************
     * XBOX Drive Buttons *
     **********************/
@@ -237,6 +237,7 @@ public class Team3373 extends SimpleRobot{
         //Arm.grabFrisbee();
         Arm.armUp();
         Arm.armDown();
+        Arm.goToPosition(2.5);
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();
@@ -306,6 +307,10 @@ public class Team3373 extends SimpleRobot{
         
         String currentTime = Double.toString(robotTimer.get());
         LCD.println(Line.kUser6, 1, currentTime);
+        
+        String potString = Double.toString(pot1.getVoltage());
+        LCD.println(Line.kUser2, 1, potString);
+        LCD.updateLCD();
     
         
         }
