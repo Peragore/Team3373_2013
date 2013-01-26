@@ -32,6 +32,7 @@ public class Team3373 extends SimpleRobot{
    int StageTwoMotorPWM = 2; //Declares channel of StageTwo PWM
    Servo frontCameraServo = new Servo(6);
    Relay GrabSpike = new Relay(1);
+   Relay ShootSpike = new Relay(2);
    Solenoid grabSolenoid = new Solenoid(8);
    AnalogChannel pot1 = new AnalogChannel(7);
    AnalogChannel pot2 = new AnalogChannel(6);
