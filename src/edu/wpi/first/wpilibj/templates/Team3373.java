@@ -167,15 +167,18 @@ public class Team3373 extends SimpleRobot{
    driveRB = driveStick.getRawButton(6);
    driveBack = driveStick.getRawButton(7);
    driveStart = driveStick.getRawButton(8);
+   
    /*******************
     * XBOX Drive Axes *
     *******************/
+   
    driveLX = driveStick.getRawAxis(1); 
    driveLY = driveStick.getRawAxis(2);
    driveTriggers = driveStick.getRawAxis(3);
    driveRX = driveStick.getRawAxis(4);
    driveRY = driveStick.getRawAxis(5);
    driveDP = driveStick.getRawAxis(6);
+   
    /************************
     * XBOX Shooter Buttons *
     * *********************/
