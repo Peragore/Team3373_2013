@@ -34,6 +34,7 @@ public class Team3373 extends SimpleRobot{
    Relay GrabSpike = new Relay(1);
    Solenoid grabSolenoid = new Solenoid(8);
    AnalogChannel pot1 = new AnalogChannel(7);
+   AnalogChannel pot2 = new AnalogChannel(6);
    DigitalInput armLimit = new DigitalInput(3); //returns true if clicked
    Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
