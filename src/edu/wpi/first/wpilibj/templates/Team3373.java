@@ -40,11 +40,33 @@ public class Team3373 extends SimpleRobot{
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
    DriverStationLCD LCD = DriverStationLCD.getInstance();
    //SmartDashboard smartDashboard;
+   Joystick driveStick = new Joystick(1);
    Joystick shootStick = new Joystick(2);
    Shooter objShooter = new Shooter(this);
    //Deadband objDeadband = new Deadband();
    Timer robotTimer = new Timer();
    PickArm Arm = new PickArm(this);
+   /**********************
+    * XBOX Drive Buttons *
+    **********************/
+   boolean driveA;
+   boolean driveB;
+   boolean driveX;
+   boolean driveY;
+   boolean driveRB;
+   boolean driveLB;
+   boolean driveStart;
+   boolean driveBack;
+   
+   /********************
+    *  XBOX Drive Axes *
+    ********************/
+   double driveLX;
+   double driveLY;
+   double driveTriggers;
+   double driveRX;
+   double driveRY;
+   double driveDP;
    /************************
     * XBOX Shooter Buttons *
     * *********************/
@@ -64,12 +86,12 @@ public class Team3373 extends SimpleRobot{
     * XBOX Shooter Axes *
     * *********************/
    
-   double shootLX = shootStick.getRawAxis(1); 
-   double shootLY = shootStick.getRawAxis(2);
-   double shootTriggers = shootStick.getRawAxis(3);
-   double shootRX = shootStick.getRawAxis(4);
-   double shootRY = shootStick.getRawAxis(5);
-   double shootDP = shootStick.getRawAxis(6); 
+   double shootLX; 
+   double shootLY;
+   double shootTriggers;
+   double shootRX;
+   double shootRY;
+   double shootDP; 
    
   /*********************************
    * Math/Shooter Action Variables *
@@ -133,7 +155,28 @@ public class Team3373 extends SimpleRobot{
    flagBack = true;
    
    while (isOperatorControl() & isEnabled()){
-           /************************
+   /**********************
+    * XBOX Drive Buttons *
+    **********************/
+       
+   driveA = driveStick.getRawButton(1);
+   driveB = driveStick.getRawButton(2);
+   driveX = driveStick.getRawButton(3);
+   driveY = driveStick.getRawButton(4);
+   driveLB = driveStick.getRawButton(5);
+   driveRB = driveStick.getRawButton(6);
+   driveBack = driveStick.getRawButton(7);
+   driveStart = driveStick.getRawButton(8);
+   /*******************
+    * XBOX Drive Axes *
+    *******************/
+   driveLX = driveStick.getRawAxis(1); 
+   driveLY = driveStick.getRawAxis(2);
+   driveTriggers = driveStick.getRawAxis(3);
+   driveRX = driveStick.getRawAxis(4);
+   driveRY = driveStick.getRawAxis(5);
+   driveDP = driveStick.getRawAxis(6);
+   /************************
     * XBOX Shooter Buttons *
     * *********************/
    
@@ -141,8 +184,8 @@ public class Team3373 extends SimpleRobot{
    shootB = shootStick.getRawButton(2);
    shootX = shootStick.getRawButton(3);
    shootY = shootStick.getRawButton(4);
-   shootRB = shootStick.getRawButton(5);
-   shootLB = shootStick.getRawButton(6);
+   shootRB = shootStick.getRawButton(6);
+   shootLB = shootStick.getRawButton(5);
    shootBack = shootStick.getRawButton(7); 
    shootStart = shootStick.getRawButton(8);
    
