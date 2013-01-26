@@ -65,7 +65,9 @@ public class Shooter {
             flagRight = true;
         }
         if (team.shootLB && flagLeft){
-            
+            team.ShootSpike.set(Value.kReverse);
+        } else if (team.shootRB && flagRight){
+            team.ShootSpike.set(Value.kForward);
         }        
         
         
