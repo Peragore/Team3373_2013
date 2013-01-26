@@ -57,6 +57,7 @@ public class Team3373 extends SimpleRobot{
    boolean shootBack; 
    boolean shootStart;
    boolean test;
+   boolean solenidFlag;
    
    /************************
     * XBOX Shooter Axes *
