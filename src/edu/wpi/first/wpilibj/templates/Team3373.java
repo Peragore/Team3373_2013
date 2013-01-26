@@ -243,7 +243,6 @@ public class Team3373 extends SimpleRobot{
         Arm.armUp();
         Arm.armDown();
         Arm.goToPosition(2.5);
-        objShooter.elevator();
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Relay.*;
  * @author Philip2
  */
 public class Shooter {
-
+   int elevatorStatus = 1;
    Team3373 team;
    DriverStationLCD dsLCD;
     public Shooter(Team3373 t){
@@ -52,7 +52,7 @@ public class Shooter {
         double a = 0;
         return a;
     }
-    public void elevator(){
+    public void elevator(double target){
 
         
         if (team.pot1.getVoltage() >= 4.8 ) {
@@ -70,7 +70,29 @@ public class Shooter {
             team.GrabSpike.set(Value.kForward);
         }        
         
-        
+        switch (elevatorStatus){
+            case 1: //not moving
+                team.ShootSpike.set(Value.kForward);
+                if (target > team.pot1.getVoltage()){
+                    elevatorStatus = 2;
+                } else if (target < team.pot1.getVoltage()){
+                    elevatorStatus = 3;
+                }   
+                break;
+            case 2: //going up
+                team.ShootSpike.set(Value.kForward);
+                if (Math.abs(target - team.pot1.getVoltage()) <= .05){
+                    elevatorStatus = 0;
+                }
+                break;
+            case 3: //going down
+                team.ShootSpike.set(Value.kReverse);
+                if (Math.abs(target - team.pot1.getVoltage()) <= .05){
+                    elevatorStatus = 0;
+                }
+                break;
+    }
+      
         
         
         /*if(team.shootA && !team.shootB){
