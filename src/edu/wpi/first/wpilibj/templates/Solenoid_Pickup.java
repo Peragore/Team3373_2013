@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DriverStationLCD.Line;
  */
 public class Solenoid_Pickup {
     
+   boolean engage;
    Team3373 team;
    
    public Solenoid_Pickup(Team3373 t){
@@ -19,9 +20,11 @@ public class Solenoid_Pickup {
     
     public void solenoid(){
         
-        if (team.shootA){
+        if (team.shootA && !team.solenidFlag && team.flagA){
             team.grabSolenoid.set(true);
-        } else if (team.shootB)
+            team.solenidFlag = true;
+        } else if (team.shootA && team.solenidFlag && !team.flagA)
             team.grabSolenoid.set(false);
+            team.solenidFlag = false;
         }
     }

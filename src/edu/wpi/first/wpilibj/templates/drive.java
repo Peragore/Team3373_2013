@@ -16,6 +16,7 @@ public class drive {
     boolean driveA = drivestick.getRawButton(1);
     double driveLX =  drivestick.getRawAxis(1);
     double driveLY =  drivestick.getRawAxis(2);
+    double driveRX = drivestick.getRawAxis(3);
     Team3373 team;
     public drive(Team3373 t){
        team = t;
@@ -27,5 +28,10 @@ public class drive {
     if (driveLY <= 0 && driveLY >= -1 ){
         
     }
+    
+    drive.mecanumDrive_Cartesian(driveLX, driveLY, driveRX, 0);
+    
+    }
+    
  }
 }
