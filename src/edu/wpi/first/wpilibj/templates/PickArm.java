@@ -13,15 +13,41 @@ import edu.wpi.first.wpilibj.templates.*;
  */
 public class PickArm {
     int grabStatus = 0;
+    int goToStatus = 0;
     Team3373 team;
     String grabString;
     double lastTime;
     double previousTime;
     boolean pickUpFlag = true;
+    
+    double currentPosition;
+    
     public PickArm(Team3373 t){
        team = t;
     }
-    
+    public void goToPosition (double targetPosition){
+        currentPosition = team.pot1.getVoltage();
+        switch(goToStatus){
+            case 0:
+                if(team.shootX && team.flagY){
+                   goToStatus = 1;
+                }
+                break;
+            case 1:
+                if(targetPosition > currentPosition){
+                    team.StageOneTalon.set(0.5);
+                } else if (targetPosition < currentPosition){
+                    team.StageOneTalon.set(-0.5);
+                } else if (currentPosition > (targetPosition - 0.05) || currentPosition < (targetPosition + 0.05)){
+                    goToStatus = 2;
+                }
+                break;
+            case 2:
+                team.StageOneTalon.set(0);
+                goToStatus = 0;
+                break;
+        }
+    }
 
     public void armUp(){
         if (team.shootA && pickUpFlag){
@@ -46,12 +72,6 @@ public class PickArm {
         }
     }
     public void rotate() {
-        if (team.pot1.getVoltage() > 0.5){
-            
-        }
-        String potString = Double.toString(team.pot1.getVoltage());
-        team.LCD.println(DriverStationLCD.Line.kUser1, 1, potString);
-        team.LCD.updateLCD();
     } 
     
     
