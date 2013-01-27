@@ -139,8 +139,8 @@ public class Team3373 extends SimpleRobot{
    boolean flagBack2;
    boolean flagLeft;
    boolean flagRight;
-   public Team3373(){
-        
+   double shooterTarget;
+   public Team3373(){       
     }
     
     public void autonomous() {
@@ -249,7 +249,7 @@ public class Team3373 extends SimpleRobot{
         Arm.armUp();
         Arm.armDown();
         //Arm.goToPosition(2.5);
-        objShooter.elevator();
+        objShooter.elevator(shooterTarget);
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();
