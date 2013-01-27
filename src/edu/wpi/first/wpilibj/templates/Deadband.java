@@ -18,11 +18,12 @@ public class Deadband{
     
     //Author: Nick Iasso
     public boolean zeroDeadBand (double topNumber, double bottomNumber, double value){
-        boolean a = false;
+        boolean a;
         if (bottomNumber > value && value > topNumber){ /*Checks to see if the input value is between two numbers*/
          a = true;
          return a;
         } else {
+            a = false;
             return a;
         }
     }
