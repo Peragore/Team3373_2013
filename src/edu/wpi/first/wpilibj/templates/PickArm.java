@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.templates.*;
  */
 public class PickArm {
     int grabStatus = 0;
-    int goToStatus = 0;
+    int rotateStatus = 0;
     Team3373 team;
     String grabString;
     double lastTime;
@@ -25,27 +25,29 @@ public class PickArm {
     public PickArm(Team3373 t){
        team = t;
     }
-    public void goToPosition (double targetPosition){
+    public void rotate (double targetPosition){
         currentPosition = team.pot1.getVoltage();
-        switch(goToStatus){
-            case 0:
-                if(team.shootX && team.flagY){
-                   goToStatus = 1;
-                }
-                break;
-            case 1:
-                if(targetPosition > currentPosition){
-                    team.StageOneTalon.set(0.5);
-                } else if (targetPosition < currentPosition){
-                    team.StageOneTalon.set(-0.5);
-                } else if (currentPosition > (targetPosition - 0.05) || currentPosition < (targetPosition + 0.05)){
-                    goToStatus = 2;
-                }
-                break;
-            case 2:
-                team.StageOneTalon.set(0);
-                goToStatus = 0;
-                break;
+            switch(rotateStatus){
+                case 0:
+                   if(team.shootX && team.flagX){
+                      rotateStatus = 1;
+                      team.flagX = false;
+                   }
+                    break;
+              case 1:
+                  if(targetPosition > currentPosition && currentPosition < team.rotateLimitMaximum){
+                       team.StageOneTalon.set(0.5);
+                  } else if (targetPosition < currentPosition && currentPosition > team.rotateLimitMinimum){
+                     team.StageOneTalon.set(-0.5);
+                 } 
+                 if (currentPosition > (targetPosition - 0.05) && currentPosition < (targetPosition + 0.05)){
+                      rotateStatus = 2;
+                    }
+                  break;
+               case 2:
+                  team.StageOneTalon.set(0);
+                  rotateStatus = 0;
+                  break;
         }
     }
 
@@ -70,9 +72,6 @@ public class PickArm {
             team.GrabSpike.set(Value.kOff);
             pickUpFlag = true;
         }
-    }
-    public void rotate() {
-        
     } 
     
     

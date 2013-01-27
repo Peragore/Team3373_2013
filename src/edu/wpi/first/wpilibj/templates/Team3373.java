@@ -47,6 +47,8 @@ public class Team3373 extends SimpleRobot{
    //Deadband objDeadband = new Deadband();
    Timer robotTimer = new Timer();
    PickArm Arm = new PickArm(this);
+   double rotateLimitMaximum = 4.8;
+   double rotateLimitMinimum = 0.2;
    //drive Drive = new drive(this);
    /**********************
     * XBOX Drive Buttons *
@@ -118,6 +120,10 @@ public class Team3373 extends SimpleRobot{
    double off = 0;
    double Scaler = 5936;
    double change;
+   
+   double armHome = 2.5;
+   double dropOff = 4.2;
+   double pickUp = 1;
    
    double startTime = 9000000;
    double backTime = 90000000;
@@ -237,12 +243,12 @@ public class Team3373 extends SimpleRobot{
           percentageScaler = 0.75;
         }
         */
-        Arm.rotate();
+        Arm.rotate(2.5);
         //objShooter.elevator();
         //Arm.grabFrisbee();
         Arm.armUp();
         Arm.armDown();
-        Arm.goToPosition(2.5);
+        //Arm.goToPosition(2.5);
         objShooter.elevator();
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
