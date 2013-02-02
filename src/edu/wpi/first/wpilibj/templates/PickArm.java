@@ -26,7 +26,7 @@ public class PickArm {
        team = t;
     }
 
-    public void rotate (double targetPosition){
+    public void rotate (){
         currentPosition = team.pot1.getVoltage(); //manual control
         if (team.shootA && team.flagA && currentPosition <= 3.334){ //a control (moving positive)
             team.targetPosition = (currentPosition + .25);
@@ -35,9 +35,11 @@ public class PickArm {
             team.targetPosition = (currentPosition - .25);
             team.flagB = false;
         } else if (currentPosition <= 3.334 && currentPosition >= 1.5 ) { //manual control using Lstick X axis (positive and negative)                      
-            team.targetPosition = team.shootLX;
+            team.StageOneTalon.set(team.shootLX);
         }
-
+        team.smartDashboard.putNumber("Target Position: ", team.targetPosition);
+        team.smartDashboard.putNumber("Rotate Status: ", rotateStatus);
+        team.smartDashboard.putNumber("Current Position: ", currentPosition);
             switch(rotateStatus){
                 case 0:
                    if(team.shootX && team.flagX){
@@ -46,12 +48,12 @@ public class PickArm {
                    }
                     break;
               case 1:
-                  if(targetPosition > currentPosition && currentPosition < team.rotateLimitMaximum){
+                  if(team.targetPosition > currentPosition && currentPosition <= 3.334){
                        team.StageOneTalon.set(0.5);
-                  } else if (targetPosition < currentPosition && currentPosition > team.rotateLimitMinimum){
+                  } else if (team.targetPosition < currentPosition && currentPosition >= 1.5){
                      team.StageOneTalon.set(-0.5);
                  } 
-                 if (currentPosition > (targetPosition - 0.05) && currentPosition < (targetPosition + 0.05)){
+                 if (currentPosition > (team.targetPosition - 0.05) && currentPosition < (team.targetPosition + 0.05)){
                       rotateStatus = 2;
                     }
                   break;
@@ -63,7 +65,7 @@ public class PickArm {
     }
 
     public void armUp(){
-        if (team.shootA && pickUpFlag){
+        if (team.shootStart && pickUpFlag){
             lastTime = team.robotTimer.get();
             team.GrabSpike.set(Value.kForward);
             pickUpFlag = false;
@@ -74,13 +76,13 @@ public class PickArm {
         }
     }
     public void armDown(){
-        if (team.shootB && pickUpFlag){
+        if (team.shootBack && pickUpFlag){
             lastTime = team.robotTimer.get();
-            team.GrabSpike.set(Value.kReverse);
+            team.armSpike.set(Value.kReverse);
             pickUpFlag = false;
         } 
         if ((team.robotTimer.get() - lastTime) >= 2){
-            team.GrabSpike.set(Value.kOff);
+            team.armSpike.set(Value.kOff);
             pickUpFlag = true;
         }
     } 
@@ -101,6 +103,7 @@ public class PickArm {
                 break;
             case 1:// parked and signal to run
                 team.GrabSpike.set(Value.kForward);
+                team.solenidFlag = true;
                 if (!team.armLimit.get()){
                 grabStatus = 2;
                 }

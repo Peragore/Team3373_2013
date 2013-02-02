@@ -31,6 +31,7 @@ public class Team3373 extends SimpleRobot{
    Servo frontCameraServo = new Servo(6);
    Relay GrabSpike = new Relay(1);
    Relay ShootSpike = new Relay(2);
+   Relay armSpike = new Relay(3);
    Solenoid grabSolenoid = new Solenoid(8);
    AnalogChannel pot1 = new AnalogChannel(7);
    AnalogChannel pot2 = new AnalogChannel(6);
@@ -38,13 +39,14 @@ public class Team3373 extends SimpleRobot{
    Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
    DriverStationLCD LCD = DriverStationLCD.getInstance();
-   //SmartDashboard smartDashboard;
+   SmartDashboard smartDashboard;
    Joystick driveStick = new Joystick(1);
    Joystick shootStick = new Joystick(2);
    Shooter objShooter = new Shooter(this);
    //Deadband objDeadband = new Deadband();
    Timer robotTimer = new Timer();
    PickArm Arm = new PickArm(this);
+   Solenoid_Pickup solPick = new Solenoid_Pickup(this);
    double rotateLimitMaximum = 4.8;
    double rotateLimitMinimum = 0.2;
    //drive Drive = new drive(this);
@@ -245,12 +247,12 @@ public class Team3373 extends SimpleRobot{
           percentageScaler = 0.75;
         }
         */
-        Arm.rotate(targetPosition);
+        Arm.rotate();
         //objShooter.elevator();
-        //Arm.grabFrisbee();
+        Arm.grabFrisbee();
         Arm.armUp();
         Arm.armDown();
-        //Arm.goToPosition(2.5);
+        solPick.solenoid();
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();
@@ -328,5 +330,50 @@ public class Team3373 extends SimpleRobot{
         
         }
     }
+    public void test() {
+        double currentPosition = pot1.getVoltage();
+        while (isEnabled() && isTest()) {
+
+            if (shootA && flagA && currentPosition <= 3.334){                
+                targetPosition = currentPosition + .25;
+                flagA = false;
+            } else if (shootB && flagB && currentPosition >= 1.5){
+                targetPosition = currentPosition - .25;
+                flagB = false;
+            }
+            if ((currentPosition >= 1.5 && currentPosition <= 3.334) && Math.abs(shootLX) >= .025) {
+                StageOneTalon.set(shootLX * .25);
+            }
+            if ((currentPosition - targetPosition) >= .005){
+                StageOneTalon.set(.25); //if (targetPosition <= currentPosition + Math.abs(.005);
+            } else if ((currentPosition - targetPosition) <= -.005){
+                StageOneTalon.set(-.25);
+            } else {
+                StageOneTalon.set(0);
+            }
+            Arm.grabFrisbee();
+            solPick.solenoid();
+            smartDashboard.putNumber("Current Position: ", currentPosition);
+            smartDashboard.putNumber("Target Position: ", targetPosition);
+            smartDashboard.putBoolean("Solenoid State: ", solenidFlag);
+            smartDashboard.putBoolean("Pressure Position: ", armLimit.get());
+            
+        
+        if (!shootA && !flagA) { //toggles
+            flagA = true;
+        } else if (!shootB && !flagB){
+            flagB = true;
+        }else if (!shootX && !flagX){
+            flagX = true;
+        }else if (!shootY && !flagY){
+            flagY = true;
+        } else if (!shootStart && !flagStart){
+            flagStart = true;
+        }else if (!shootBack && !flagBack){
+            flagBack = true;
+        }
+        }
+    }
 }
+
 

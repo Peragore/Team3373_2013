@@ -20,11 +20,14 @@ public class Solenoid_Pickup {
     
     public void solenoid(){
         
-        if (team.shootA && !team.solenidFlag && team.flagA){
-            team.grabSolenoid.set(true);
+        if (team.shootX && !team.solenidFlag && team.flagX){
             team.solenidFlag = true;
-        } else if (team.shootA && team.solenidFlag && !team.flagA)
-            team.grabSolenoid.set(false);
+            team.flagX = false;
+        } else if (team.shootX && team.solenidFlag && team.flagX) {
             team.solenidFlag = false;
+            team.flagX = false;
         }
+    
+    team.grabSolenoid.set(team.solenidFlag);
     }
+}
