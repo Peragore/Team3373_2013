@@ -7,8 +7,6 @@
 
 package edu.wpi.first.wpilibj.templates;
 
-
-
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStationLCD.Line;
@@ -101,6 +99,7 @@ public class Team3373 extends SimpleRobot{
    * Math/Shooter Action Variables *
    *********************************/
    
+   TableLookUp objTableLookUp = new TableLookUp();
    
    double ShooterSpeedStage2 = 0;//was StageTwoTalon.get()
    double percentageScaler = 0.75;
@@ -129,6 +128,7 @@ public class Team3373 extends SimpleRobot{
    double backTime = 90000000;
    double aTime = 900000000;
    double bTime = 900000000;
+   double targetPosition;
    
    boolean flagA;
    boolean flagB;
@@ -170,6 +170,8 @@ public class Team3373 extends SimpleRobot{
    /**********************
     * XBOX Drive Buttons *
     **********************/
+   objTableLookUp.test();
+   
        
    driveA = driveStick.getRawButton(1);
    driveB = driveStick.getRawButton(2);
@@ -243,13 +245,12 @@ public class Team3373 extends SimpleRobot{
           percentageScaler = 0.75;
         }
         */
-        Arm.rotate(2.5);
+        Arm.rotate(targetPosition);
         //objShooter.elevator();
         //Arm.grabFrisbee();
         Arm.armUp();
         Arm.armDown();
         //Arm.goToPosition(2.5);
-        objShooter.elevator();
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
         //String percentage = Double.toString();

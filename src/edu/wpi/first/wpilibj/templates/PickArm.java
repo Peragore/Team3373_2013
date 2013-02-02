@@ -25,7 +25,16 @@ public class PickArm {
     public PickArm(Team3373 t){
        team = t;
     }
+
     public void rotate (double targetPosition){
+        if (team.shootA && team.flagA && ){
+            team.targetPosition = (team.pot1.getVoltage() + .25);
+            team.flagA = false;
+        } else if (team.shootB && team.flagB){
+            team.targetPosition = (team.pot1.getVoltage() - .25);
+        } else {
+            team.targetPosition = team.shootLX;
+        }
         currentPosition = team.pot1.getVoltage();
             switch(rotateStatus){
                 case 0:
