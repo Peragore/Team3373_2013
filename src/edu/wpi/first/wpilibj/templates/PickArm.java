@@ -27,15 +27,17 @@ public class PickArm {
     }
 
     public void rotate (double targetPosition){
-        if (team.shootA && team.flagA && ){
-            team.targetPosition = (team.pot1.getVoltage() + .25);
+        currentPosition = team.pot1.getVoltage(); //manual control
+        if (team.shootA && team.flagA && currentPosition <= 3.334){ //a control (moving positive)
+            team.targetPosition = (currentPosition + .25);
             team.flagA = false;
-        } else if (team.shootB && team.flagB){
-            team.targetPosition = (team.pot1.getVoltage() - .25);
-        } else {
+        } else if (team.shootB && team.flagB && currentPosition >= 1.5){ //b control (moving negative)
+            team.targetPosition = (currentPosition - .25);
+            team.flagB = false;
+        } else if (currentPosition <= 3.334 && currentPosition >= 1.5 ) { //manual control using Lstick X axis (positive and negative)                      
             team.targetPosition = team.shootLX;
         }
-        currentPosition = team.pot1.getVoltage();
+
             switch(rotateStatus){
                 case 0:
                    if(team.shootX && team.flagX){
