@@ -10,6 +10,8 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStationLCD.Line;
+import edu.wpi.first.wpilibj.Relay.Value;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.templates.*;
 //import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.SimpleRobot;
@@ -35,6 +37,7 @@ public class Team3373 extends SimpleRobot{
    Solenoid grabSolenoid = new Solenoid(8);
    AnalogChannel pot1 = new AnalogChannel(7);
    AnalogChannel pot2 = new AnalogChannel(6);
+   DigitalInput handUp = new DigitalInput(2);
    DigitalInput armLimit = new DigitalInput(3); //returns true if clicked
    Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
@@ -332,9 +335,58 @@ public class Team3373 extends SimpleRobot{
     }
     public void test() {
         double currentPosition = pot1.getVoltage();
+        robotTimer.start();
         while (isEnabled() && isTest()) {
-
-            if (shootA && flagA && currentPosition <= 3.334){                
+               objTableLookUp.test();
+   
+       
+   driveA = driveStick.getRawButton(1);
+   driveB = driveStick.getRawButton(2);
+   driveX = driveStick.getRawButton(3);
+   driveY = driveStick.getRawButton(4);
+   driveLB = driveStick.getRawButton(5);
+   driveRB = driveStick.getRawButton(6);
+   driveBack = driveStick.getRawButton(7);
+   driveStart = driveStick.getRawButton(8);
+   
+   /*******************
+    * XBOX Drive Axes *
+    *******************/
+   
+   driveLX = driveStick.getRawAxis(1); 
+   driveLY = driveStick.getRawAxis(2);
+   driveTriggers = driveStick.getRawAxis(3);
+   driveRX = driveStick.getRawAxis(4);
+   driveRY = driveStick.getRawAxis(5);
+   driveDP = driveStick.getRawAxis(6);
+   
+   /************************
+    * XBOX Shooter Buttons *
+    * *********************/
+   
+   shootA = shootStick.getRawButton(1);
+   shootB = shootStick.getRawButton(2);
+   shootX = shootStick.getRawButton(3);
+   shootY = shootStick.getRawButton(4);
+   shootRB = shootStick.getRawButton(6);
+   shootLB = shootStick.getRawButton(5);
+   shootBack = shootStick.getRawButton(7); 
+   shootStart = shootStick.getRawButton(8);
+   
+   
+   /************************
+    * XBOX Shooter Axes *
+    * *********************/
+   
+   shootLX = shootStick.getRawAxis(1); 
+   shootLY = shootStick.getRawAxis(2);
+   shootTriggers = shootStick.getRawAxis(3);
+   shootRX = shootStick.getRawAxis(4);
+   shootRY = shootStick.getRawAxis(5);
+   shootDP = shootStick.getRawAxis(6);
+            
+            //LiveWindow.run();
+            /*if (shootA && flagA && currentPosition <= 3.334){                
                 targetPosition = currentPosition + .25;
                 flagA = false;
             } else if (shootB && flagB && currentPosition >= 1.5){
@@ -350,13 +402,26 @@ public class Team3373 extends SimpleRobot{
                 StageOneTalon.set(-.25);
             } else {
                 StageOneTalon.set(0);
+            }*/
+            if (shootA){
+                armSpike.set(Value.kForward);
+                flagA = false;
+            } else if (shootB){
+                armSpike.set(Value.kReverse);
+                flagB = false;
+            } else {
+                armSpike.set(Value.kOff);
             }
+            
+            StageOneTalon.set(shootLX * .25);
             Arm.grabFrisbee();
             solPick.solenoid();
             smartDashboard.putNumber("Current Position: ", currentPosition);
             smartDashboard.putNumber("Target Position: ", targetPosition);
             smartDashboard.putBoolean("Solenoid State: ", solenidFlag);
             smartDashboard.putBoolean("Pressure Position: ", armLimit.get());
+            String armMagnet = ""+armLimit.get();
+            LCD.println(Line.kUser1, 1, armMagnet);
             
         
         if (!shootA && !flagA) { //toggles

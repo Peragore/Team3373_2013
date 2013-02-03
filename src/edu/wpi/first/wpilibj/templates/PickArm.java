@@ -97,20 +97,20 @@ public class PickArm {
         switch(grabStatus){
             case 0: //init stage, not running and no signal to run
             if (team.shootY && team.flagY){
+                team.GrabSpike.set(Value.kOff);
                 grabStatus = 1;
                 team.flagY = false;
             }
                 break;
             case 1:// parked and signal to run
-                team.GrabSpike.set(Value.kForward);
+                team.GrabSpike.set(Value.kReverse);
                 team.solenidFlag = true;
-                if (!team.armLimit.get()){
                 grabStatus = 2;
-                }
                 break;
             case 2: //running
-                team.GrabSpike.set(Value.kForward);
-                if(team.armLimit.get()){
+                team.GrabSpike.set(Value.kReverse);
+                double startTime = team.robotTimer.get();
+                if(team.armLimit.get() && ((team.robotTimer.get() - startTime) >= .25)){
                     grabStatus = 3;  
                 }
                 break;
