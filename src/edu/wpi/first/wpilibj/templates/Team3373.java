@@ -133,7 +133,7 @@ public class Team3373 extends SimpleRobot{
    double backTime = 90000000;
    double aTime = 900000000;
    double bTime = 900000000;
-   double targetPosition;
+   double targetPosition = 2.5;
    
    boolean flagA;
    boolean flagB;
@@ -336,6 +336,10 @@ public class Team3373 extends SimpleRobot{
     public void test() {
         double currentPosition = pot1.getVoltage();
         robotTimer.start();
+        while (isDisabled() && isTest()){
+            smartDashboard.putNumber("Elbow: ", currentPosition);
+            LiveWindow.run();
+        }
         while (isEnabled() && isTest()) {
                objTableLookUp.test();
    
@@ -404,24 +408,30 @@ public class Team3373 extends SimpleRobot{
                 StageOneTalon.set(0);
             }*/
             if (shootA){
-                armSpike.set(Value.kForward);
+                GrabSpike.set(Value.kForward);
                 flagA = false;
             } else if (shootB){
-                armSpike.set(Value.kReverse);
+                GrabSpike.set(Value.kReverse);
                 flagB = false;
             } else {
-                armSpike.set(Value.kOff);
+                GrabSpike.set(Value.kOff);
             }
-            
-            StageOneTalon.set(shootLX * .25);
+            Arm.rotate();
+            //StageOneTalon.set(shootLX * .25);
             Arm.grabFrisbee();
+            Arm.armDown();
+            Arm.armUp();
             solPick.solenoid();
+            LiveWindow.setEnabled(false);
+            LiveWindow.run();
             smartDashboard.putNumber("Current Position: ", currentPosition);
             smartDashboard.putNumber("Target Position: ", targetPosition);
             smartDashboard.putBoolean("Solenoid State: ", solenidFlag);
             smartDashboard.putBoolean("Pressure Position: ", armLimit.get());
             String armMagnet = ""+armLimit.get();
-            LCD.println(Line.kUser1, 1, armMagnet);
+            
+            
+            LCD.println(Line.kUser2, 1, armMagnet + " ");
             
         
         if (!shootA && !flagA) { //toggles
