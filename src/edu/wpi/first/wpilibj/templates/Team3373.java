@@ -270,19 +270,7 @@ public class Team3373 extends SimpleRobot{
         **Flag Code***
         *************/
    
-        if (!shootA && !flagA) { //toggles
-            flagA = true;
-        } else if (!shootB && !flagB){
-            flagB = true;
-        }else if (!shootX && !flagX){
-            flagX = true;
-        }else if (!shootY && !flagY){
-            flagY = true;
-        } else if (!shootStart && !flagStart){
-            flagStart = true;
-        }else if (!shootBack && !flagBack){
-            flagBack = true;
-        }
+         //moved to SuperJoystick class
         
         /************
          * Solenoid *
