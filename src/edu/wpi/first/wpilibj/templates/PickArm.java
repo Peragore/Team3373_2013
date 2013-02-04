@@ -23,6 +23,7 @@ public class PickArm {
     double max = 2.900;
     double pos1 = 2.444;
     double pos2 = 2.089;
+    boolean toggleFlag = true;
     boolean pickUpFlag = true;
     
     double currentPosition;
@@ -47,32 +48,40 @@ public class PickArm {
         team.smartDashboard.putNumber("Target Position: ", team.targetPosition);
         team.smartDashboard.putNumber("Rotate Status: ", rotateStatus);
         team.smartDashboard.putNumber("Current Position: ", currentPosition);
+         if (toggleFlag && team.shootRB){
+             toggleFlag = false;
+         } else if (!toggleFlag && team.shootRB){
+             toggleFlag = true;
+         }
+        if (toggleFlag) { 
             switch (rotateStatus){
-                case 0:
-                   
-                      rotateStatus = 1;
-                      team.flagX = false;
-                   
-                    break;
-              case 1:
-                  if(team.targetPosition > currentPosition && currentPosition <= max){
-                       team.StageOneTalon.set(-0.5);
-                  } else if (team.targetPosition < currentPosition && currentPosition >= min){
-                     team.StageOneTalon.set(0.5);
-                 } 
-                 if (currentPosition > (team.targetPosition - 0.01) || currentPosition < (team.targetPosition + 0.01)){
-                      rotateStatus = 2;
-                    }
-                  break;
-               case 2:
-                  team.StageOneTalon.set(0);
-                  if (Math.abs(team.targetPosition - currentPosition) >= .1){
-                      rotateStatus = 1;
-                  }
-                  break;
-        }
-    }
+                    case 0:
 
+                          rotateStatus = 1;
+                          team.flagX = false;
+
+                        break;
+                  case 1:
+                      if(team.targetPosition > currentPosition && currentPosition <= max){
+                           team.StageOneTalon.set(-0.75);
+                      } else if (team.targetPosition < currentPosition && currentPosition >= min){
+                         team.StageOneTalon.set(0.75);
+                     } 
+                     if (currentPosition > (team.targetPosition - 0.01) || currentPosition < (team.targetPosition + 0.01)){
+                          rotateStatus = 2;
+                        }
+                      break;
+                   case 2:
+                      team.StageOneTalon.set(0);
+                      if (Math.abs(team.targetPosition - currentPosition) >= .1){
+                          rotateStatus = 1;
+                      }
+                      break;
+            }
+    } else if (!toggleFlag){
+        team.StageOneTalon.set(team.shootLX * .5);
+    }
+    }
     public void armUp(){
         if (team.shootLB && pickUpFlag){
             lastTime = team.robotTimer.get();
