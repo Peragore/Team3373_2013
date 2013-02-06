@@ -48,9 +48,9 @@ public class PickArm {
         team.smartDashboard.putNumber("Target Position: ", team.targetPosition);
         team.smartDashboard.putNumber("Rotate Status: ", rotateStatus);
         team.smartDashboard.putNumber("Current Position: ", currentPosition);
-         if (toggleFlag && team.shootRB){
+         if (toggleFlag && team.shootA){
              toggleFlag = false;
-         } else if (!toggleFlag && team.shootRB){
+         } else if (!toggleFlag && team.shootA){
              toggleFlag = true;
          }
         if (toggleFlag) { 
@@ -85,11 +85,11 @@ public class PickArm {
     public void armUp(){
         if (team.shootLB && pickUpFlag){
             lastTime = team.robotTimer.get();
-            team.GrabSpike.set(Value.kForward);
+            team.armSpike.set(Value.kForward);
             pickUpFlag = false;
         } 
         if ((team.robotTimer.get() - lastTime) >= 2){
-            team.GrabSpike.set(Value.kOff);
+            team.armSpike.set(Value.kOff);
             pickUpFlag = true;
         }
     }

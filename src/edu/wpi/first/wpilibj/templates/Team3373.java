@@ -395,7 +395,7 @@ public class Team3373 extends SimpleRobot{
             } else {
                 StageOneTalon.set(0);
             }*/
-            if (shootA){
+            /*if (shootA){
                 GrabSpike.set(Value.kForward);
                 flagA = false;
             } else if (shootB){
@@ -403,7 +403,7 @@ public class Team3373 extends SimpleRobot{
                 flagB = false;
             } else {
                 GrabSpike.set(Value.kOff);
-            }
+            }*/
             Arm.rotate();
             //StageOneTalon.set(shootLX * .25);
             Arm.grabFrisbee();
