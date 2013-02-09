@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.*;
 //import edu.wpi.first.wpilibj.DriverStationLCD.*;
 import edu.wpi.first.wpilibj.Relay.*;
 import edu.wpi.first.wpilibj.templates.*;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 /**
  *
  * @author Philip2
@@ -25,6 +26,7 @@ public class PickArm {
     double pos2 = 2.089;
     boolean toggleFlag = true;
     boolean pickUpFlag = true;
+    boolean testFlag = false;
     
     double currentPosition;
     
@@ -34,10 +36,10 @@ public class PickArm {
 
     public void rotate (){
         currentPosition = team.pot1.getVoltage(); //manual control
-        if (team.shootStart && team.flagStart && currentPosition <= max){ //a control (moving positive)
+        if (team.shootStart && currentPosition <= max){ //a control (moving positive)
             team.targetPosition = (currentPosition + .25);
             team.flagA = false;
-        } else if (team.shootBack && team.flagBack && currentPosition >= min){ //b control (moving negative)
+        } else if (team.shootBack && currentPosition >= min){ //b control (moving negative)
             team.targetPosition = (currentPosition - .25);
             team.flagB = false;
         } 
@@ -78,12 +80,12 @@ public class PickArm {
                       }
                       break;
             }
-    } else if (!toggleFlag){
-        team.StageOneTalon.set(team.shootLX * .5);
+    } //else if (!toggleFlag){
+        //team.StageOneTalon.set(team.shootLX * .5);
+    //}
     }
-    }
-    public void armUp(){
-        if (team.shootLB && pickUpFlag){
+    public void armUp(boolean armUpButton){
+        if (armUpButton && pickUpFlag){
             lastTime = team.robotTimer.get();
             team.armSpike.set(Value.kForward);
             pickUpFlag = false;
@@ -93,8 +95,8 @@ public class PickArm {
             pickUpFlag = true;
         }
     }
-    public void armDown(){
-        if (team.shootRB && pickUpFlag){
+    public void armDown(boolean armDownButton){
+        if (armDownButton && pickUpFlag){
             lastTime = team.robotTimer.get();
             team.armSpike.set(Value.kReverse);
             pickUpFlag = false;
@@ -106,7 +108,7 @@ public class PickArm {
     } 
     
     
-    public void grabFrisbee() {//used to create suction after arm goes down to grab frisbee
+    public void grabFrisbee(boolean grabButton) {//used to create suction after arm goes down to grab frisbee
 
         
         grabString = Integer.toString(grabStatus);
@@ -115,7 +117,7 @@ public class PickArm {
         switch(grabStatus){
             case 0: //init stage, not running and no signal to run
                 team.GrabSpike.set(Value.kOff);            
-            if (team.shootY && team.flagY){
+            if (grabButton){
                 grabStatus = 1;
                 team.flagY = false;
             }
@@ -135,7 +137,23 @@ public class PickArm {
                 }
                 break;
         }
+
+            
+        }
+        public void moveArm(double target){ //moves arm to target, or doesn't move if arm is close.
+          if (Math.abs(target - currentPosition) <= .1){
+              team.StageOneTalon.set(0);
+          } else {
+            if(target > currentPosition && currentPosition <= 2.8){
+               team.StageOneTalon.set(0.25);
+            } 
+            if (target < currentPosition && currentPosition >= 2.0){
+               team.StageOneTalon.set(-0.25);
+            } 
+          }
+
+        }
+ 
         
-        team.LCD.updateLCD();
-    }
 }
+

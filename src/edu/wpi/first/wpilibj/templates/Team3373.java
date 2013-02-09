@@ -39,7 +39,7 @@ public class Team3373 extends SimpleRobot{
    AnalogChannel pot2 = new AnalogChannel(6);
    DigitalInput handUp = new DigitalInput(2);
    DigitalInput armLimit = new DigitalInput(3); //returns true if clicked
-   Talon StageOneTalon = new Talon(1, 1); //Creates instance of StageOne PWM
+   Talon StageOneTalon = new Talon(1, 4); //Creates instance of StageOne PWM
    Talon StageTwoTalon = new Talon(1, 2); //Creates instance of StageTwo PWM 
    DriverStationLCD LCD = DriverStationLCD.getInstance();
    SmartDashboard smartDashboard;
@@ -133,7 +133,7 @@ public class Team3373 extends SimpleRobot{
    double backTime = 90000000;
    double aTime = 900000000;
    double bTime = 900000000;
-   double targetPosition = 2.5;
+   double targetPosition = pot1.getVoltage();
    
    boolean flagA;
    boolean flagB;
@@ -145,6 +145,8 @@ public class Team3373 extends SimpleRobot{
    boolean flagLeft;
    boolean flagRight;
    double shooterTarget;
+   boolean armTestFlag;
+   boolean manualToggle;
    public Team3373(){       
     }
     
@@ -170,6 +172,8 @@ public class Team3373 extends SimpleRobot{
    flagBack = true;
    flagRight = true;
    flagLeft = true;
+   armTestFlag = false;
+   manualToggle = true;
    
    while (isOperatorControl() & isEnabled()){
    /**********************
@@ -250,11 +254,55 @@ public class Team3373 extends SimpleRobot{
           percentageScaler = 0.75;
         }
         */
-        Arm.rotate();
+        //Arm.rotate();
         //objShooter.elevator();
-        Arm.grabFrisbee();
-        Arm.armUp();
-        Arm.armDown();
+        //Arm.grabFrisbee();
+        //Arm.armUp();
+        //Arm.armDown();
+        if (shootA && !armTestFlag){ 
+            StageOneTalon.set(.5);
+        } else if (shootB && !armTestFlag){
+            StageOneTalon.set(-.5);
+        } else {
+            StageOneTalon.set(0);
+        }
+        /********************
+         * Testing Arm Code *
+         ********************/
+        if (shootA && shootX && shootY && !armTestFlag){ //allows the test mode for the arm assembly to start
+            armTestFlag = true;
+        } else if (shootA && shootX && shootY && armTestFlag){ //turns the test mode for arm off
+            armTestFlag = false;
+        }
+        if (armTestFlag){
+            if (shootX){
+                targetPosition = 2.7;
+            } else if(shootY){
+                targetPosition = 2.3;
+            }
+            if (shootStick.getRawButton(9) && manualToggle){
+                manualToggle = false;
+            } else if (shootStick.getRawButton(9) && !manualToggle){
+                manualToggle = true;
+            }
+            
+            if (manualToggle){
+                if (shootRB){
+                    StageOneTalon.set(.5);
+                } else if (shootLB){
+                    StageOneTalon.set(-.5);
+                }
+            }
+            
+            Arm.armUp(shootA);
+            Arm.armDown(shootB);
+            Arm.grabFrisbee(shootStart);
+            
+            if (!manualToggle){
+                Arm.moveArm(targetPosition);
+            }
+        }
+        //Arm.moveArm(targetPosition);
         solPick.solenoid();
         /*
         //try {Thread.sleep(1000);} catch(Exception e){}
@@ -406,9 +454,7 @@ public class Team3373 extends SimpleRobot{
             }*/
             Arm.rotate();
             //StageOneTalon.set(shootLX * .25);
-            Arm.grabFrisbee();
-            Arm.armDown();
-            Arm.armUp();
+
             solPick.solenoid();
             LiveWindow.setEnabled(false);
             LiveWindow.run();
